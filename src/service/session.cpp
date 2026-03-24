@@ -49,7 +49,7 @@ void Session::execute_command( const std::string& line)
 
     try
     {
-        auto command_from_factory = factory_.createCommand(command, parse_line);
+        auto command_from_factory = factory->createCommand(command, parse_line);
 
         if( command_from_factory )
         {

@@ -14,11 +14,26 @@ pkg_check_modules(PQXX REQUIRED libpqxx)
 
 include_directories(include)
 
-add_executable(server server.cpp)
-target_link_libraries(server PRIVATE Boost::system)
-
+add_executable(server 
+                src/service/server.cpp
+                src/service/main_server.cpp
+                src/service/session.cpp
+                src/patterns/logger.cpp
+                src/patterns/factory.cpp
+                src/pattenrs/FlatCommand.cpp
+                src/patterns/LoginCommand.cpp
+                #src/repository/FlatResository.cpp
+                )
 target_include_directories(server PRIVATE ${PQXX_INCLUDE_DIRS})
-target_link_libraries(server PRIVATE ${PQXX_LIBRARIES})
+target_link_libraries(server PRIVATE
+                         Boost::system
+                         ${PQXX_LIBRARIES}
+                         Threads::Threads)
 
-add_executable(client client.cpp)
-target_link_libraries(client PRIVATE Boost::system)
+add_executable(client 
+                    src/service/client.cpp
+                    src/service/main_client.cpp
+                        )
+target_link_libraries(client PRIVATE
+                             Boost::system
+                             Threads::Threads)

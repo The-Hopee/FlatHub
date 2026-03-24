@@ -4,6 +4,8 @@
 #include <functional>
 #include "command.hpp"
 
+#include "FlatRepository.hpp"
+
 class CommandFactory
 {
 private:
@@ -12,8 +14,10 @@ private:
     // таким образом у меня объединение паттернов команда + стратегия, где стратегия выражается через лямбды
     using CreatorFunc = std::function<std::unique_ptr<ICommand>(const std::vector<std::string>&)>;
     std::unordered_map<std::string, CreatorFunc> creators_;
+
+    std::shared_ptr<PostgresFlatRepository> repo_;
 public:
-    CommandFactory();
+    CommandFactory(std::shared_ptr<PostgresFlatRepository> repo);
 
     //фабричный метод
     std::unique_ptr<ICommand> createCommand( const std::string&, const std::vector<std::string>& );

@@ -9,7 +9,6 @@ void Server::do_accept()
             {
                 // лог: клиент подсоединился
                 std::make_shared<Session>(std::move(socket), m_factory)->start();
-
             }
             else
             {

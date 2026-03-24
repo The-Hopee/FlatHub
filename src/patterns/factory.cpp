@@ -2,11 +2,11 @@
 #include "../../include/FlatCommand.hpp"
 #include "../../include/LoginCommand.hpp"
 
-CommandFactory::CommandFactory()
+CommandFactory::CommandFactory(std::shared_ptr<PostgresFlatRepository> repo): repo_(repo)
 {
     // здесь если мы хотим новый класс создать ( для регистрации юзера например ) то нам тупо надо добавить пару в мапу
-    creators_["/create_flat"] = [](const auto& args){
-        return std::make_unique<CreateFlatCommand>(args);
+    creators_["/create_flat"] = [this](const auto& args){
+        return std::make_unique<CreateFlatCommand>(args, this->repo_);
     };
 
     creators_["/login"] = [](const auto& args){

@@ -12,7 +12,9 @@ using boost::asio::ip::tcp;
 class Server
 {
 public:
-    Server(boost::asio::io_context &io_context, short port): m_acceptor(io_context, tcp::endpoint(tcp::v4(), port))
+    Server(boost::asio::io_context &io_context, short port, std::shared_ptr<CommandFactory> factory):
+     m_acceptor(io_context, tcp::endpoint(tcp::v4(), port)), 
+     m_factory(factory)
     {
         do_accept();
     }

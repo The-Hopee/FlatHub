@@ -11,20 +11,35 @@ using boost::asio::ip::tcp;
 class Client
 {
 public:
-    Client(boost::asio::io_context& io_context, const std::string& host, short port): m_socket(io_context)
+    Client(boost::asio::io_context& io_context, const std::string& host, short port)
+        : m_socket(io_context), m_host(host), m_port(port) {}
+
+    ~Client() 
     {
-        tcp::resolver resolver(io_context);
-        auto endpoint = resolver.resolve(host,std::to_string(port));
+        if (m_read_thread.joinable()) 
+        {
+            m_read_thread.join();
+        }
+    }
 
-        // Синхронное подключение ( нужно будет переделать на асинхронное todo )
-        boost::asio::connect(m_socket,endpoint);
+    void start() 
+    {
+        tcp::resolver resolver(m_socket.get_executor());
+        auto endpoint = resolver.resolve(m_host, std::to_string(m_port));
 
-        std::thread(&Client::do_read, this).detach();
+        boost::asio::connect(m_socket, endpoint);
 
-        do_write();
+        m_read_thread = std::thread(&Client::do_read, this);
+
+        do_write(); 
     }
 private:
     tcp::socket m_socket;
+
+    std::string m_host;
+    short m_port;
+
+    std::thread m_read_thread;
 
     void do_read();
     
