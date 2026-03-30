@@ -4,7 +4,7 @@
 
 #include "../include/server.hpp"
 #include "../include/factory.hpp"
-#include "../include/FlatRepository.hpp"
+#include "../include/DatabaseManager.hpp"
 #include "../include/logger.hpp"
 
 int main() 
@@ -15,10 +15,10 @@ int main()
 
         // 1) подключаемся к бд
         std::string db_conn = "dbname=postgres user=postgres password=secret host=127.0.0.1 port=5432";
-        auto flat_repo = std::make_shared<PostgresFlatRepository>(db_conn);
+        auto databaseManager = std::make_shared<DatabaseManager>(db_conn);
 
         // 2) создаем нашу фабрику команд и отдаем ей базу данных
-        auto command_factory = std::make_shared<CommandFactory>(flat_repo);
+        auto command_factory = std::make_shared<CommandFactory>(databaseManager);
 
         boost::asio::io_context io_context;
 

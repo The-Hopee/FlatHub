@@ -3,8 +3,7 @@
 #include <unordered_map>
 #include <functional>
 #include "command.hpp"
-
-#include "FlatRepository.hpp"
+#include "DatabaseManager.hpp"
 
 class CommandFactory
 {
@@ -15,9 +14,9 @@ private:
     using CreatorFunc = std::function<std::unique_ptr<ICommand>(const std::vector<std::string>&)>;
     std::unordered_map<std::string, CreatorFunc> creators_;
 
-    std::shared_ptr<PostgresFlatRepository> repo_;
+    std::shared_ptr<DatabaseManager> db_manager_;
 public:
-    CommandFactory(std::shared_ptr<PostgresFlatRepository> repo);
+    CommandFactory(std::shared_ptr<DatabaseManager> db_manager);
 
     //фабричный метод
     std::unique_ptr<ICommand> createCommand( const std::string&, const std::vector<std::string>& );

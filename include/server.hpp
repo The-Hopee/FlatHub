@@ -4,8 +4,8 @@
 #include <boost/asio.hpp>
 #include <boost/asio/ip/tcp.hpp>
 #include <memory>
-#include "../../include/session.hpp"
-#include "../../include/factory.hpp"
+#include "session.hpp"
+#include "factory.hpp"
 
 using boost::asio::ip::tcp;
 

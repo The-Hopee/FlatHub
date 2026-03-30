@@ -1,0 +1,29 @@
+file(REMOVE_RECURSE
+  "CMakeFiles/server.dir/src/patterns/FlatCommand.cpp.o"
+  "CMakeFiles/server.dir/src/patterns/FlatCommand.cpp.o.d"
+  "CMakeFiles/server.dir/src/patterns/HouseCommand.cpp.o"
+  "CMakeFiles/server.dir/src/patterns/HouseCommand.cpp.o.d"
+  "CMakeFiles/server.dir/src/patterns/LoginCommand.cpp.o"
+  "CMakeFiles/server.dir/src/patterns/LoginCommand.cpp.o.d"
+  "CMakeFiles/server.dir/src/patterns/factory.cpp.o"
+  "CMakeFiles/server.dir/src/patterns/factory.cpp.o.d"
+  "CMakeFiles/server.dir/src/patterns/logger.cpp.o"
+  "CMakeFiles/server.dir/src/patterns/logger.cpp.o.d"
+  "CMakeFiles/server.dir/src/repository/FlatRepository.cpp.o"
+  "CMakeFiles/server.dir/src/repository/FlatRepository.cpp.o.d"
+  "CMakeFiles/server.dir/src/repository/HouseRepository.cpp.o"
+  "CMakeFiles/server.dir/src/repository/HouseRepository.cpp.o.d"
+  "CMakeFiles/server.dir/src/service/main_server.cpp.o"
+  "CMakeFiles/server.dir/src/service/main_server.cpp.o.d"
+  "CMakeFiles/server.dir/src/service/server.cpp.o"
+  "CMakeFiles/server.dir/src/service/server.cpp.o.d"
+  "CMakeFiles/server.dir/src/service/session.cpp.o"
+  "CMakeFiles/server.dir/src/service/session.cpp.o.d"
+  "server"
+  "server.pdb"
+)
+
+# Per-language clean rules from dependency scanning.
+foreach(lang CXX)
+  include(CMakeFiles/server.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

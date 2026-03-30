@@ -17,11 +17,15 @@ add_executable(server
                 src/service/server.cpp
                 src/service/main_server.cpp
                 src/service/session.cpp
+
                 src/patterns/logger.cpp
                 src/patterns/factory.cpp
-                src/pattenrs/FlatCommand.cpp
+                src/patterns/FlatCommand.cpp
                 src/patterns/LoginCommand.cpp
-                #src/repository/FlatResository.cpp
+                src/patterns/HouseCommand.cpp
+
+                src/repository/FlatRepository.cpp
+                src/repository/HouseRepository.cpp
                 )
 target_include_directories(server PRIVATE ${PQXX_INCLUDE_DIRS})
 target_link_libraries(server PRIVATE
@@ -32,6 +36,7 @@ target_link_libraries(server PRIVATE
 add_executable(client 
                     src/service/client.cpp
                     src/service/main_client.cpp
+                    src/patterns/logger.cpp
                         )
 target_link_libraries(client PRIVATE
                              Boost::system

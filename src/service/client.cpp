@@ -1,4 +1,6 @@
 #include "../../include/client.hpp"
+#include "../../include/logger.hpp" // <--- НЕ ЗАБУДЬ ПОДКЛЮЧИТЬ ЛОГГЕР!
+#include <iostream>
 
 void Client::do_write()
 {
@@ -7,7 +9,9 @@ void Client::do_write()
     while (true)
     {
         std::this_thread::sleep_for(std::chrono::milliseconds(500));
-        // лог: со стороны клиента нужно ввести команду
+        
+        // Для пользователя лучше вывести простую стрелочку в консоль, чтобы он понимал, что можно вводить
+        std::cout << "Введите команду (или /quit для выхода): ";
         std::getline(std::cin, command);
 
         if( command.empty() ) continue;
@@ -17,13 +21,14 @@ void Client::do_write()
 
         if( ec )
         {
-            // лог: со стороны клиента ошибка в записи данных
+            // Лог: ошибка записи. ec.message() вернет текстовую причину ошибки от системы!
+            Logger::Instance().error("CLIENT_WRITE", "Ошибка отправки данных: " + ec.message() + "\n");
             break;
         }
             
-        if( command.compare("/quit") == 0 )
+        if( command.compare("/quit\n") == 0 ) // Не забудь, что ты выше добавил \n к команде!
         {
-            // лог: со стороны клиента инициализирован выход из сервиса
+            Logger::Instance().info("CLIENT", "Инициализирован выход из сервиса. Отключение...\n");
             break;
         }
     }
@@ -44,19 +49,24 @@ void Client::do_read()
 
             if( ec )
             {
-                // лог: со стороны клиента ошибка чтения данных
+                // Если сервер просто закрыл соединение, это не страшная ошибка (EOF - End Of File)
+                if (ec == boost::asio::error::eof) {
+                    Logger::Instance().info("CLIENT_READ", "Сервер разорвал соединение.\n");
+                } else {
+                    Logger::Instance().error("CLIENT_READ", "Ошибка чтения данных: " + ec.message() + "\n");
+                }
                 break;
             }
 
-            std::cout.write(buffer,length);
-
+            // Выводим ответ от сервера пользователю
+            std::cout.write(buffer, length);
             std::cout << std::flush;
         }
         catch(const std::exception& e)
         {
-            std::cerr << e.what() << '\n';
+            // Лог: поймали критическое исключение (например, разрыв сети на уровне ОС)
+            Logger::Instance().error("CLIENT_EXCEPTION", "Критическая ошибка: " + std::string(e.what()) + "\n");
             break;
         }
-            
     }
 }

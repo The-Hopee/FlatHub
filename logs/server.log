@@ -1,0 +1,9 @@
+[2026-03-30 12:55:00] [MAIN_TRY] [INFO] Запуск сервера...
+
+[2026-03-30 12:55:00] [MAIN_TRY] [INFO] Сервер запущен на порту 8080. Ждем клиентов...
+
+[2026-03-30 12:55:05] [CREATE_HOUSE_COMMAND] [INFO] создаем дом по адресу Pushkina_1
+[2026-03-30 12:55:05] [HOUSE_REPOSITORY_TRY] [INFO] Дом записан в PostgreSQL
+[2026-03-30 12:57:15] [CREATE_FLAT_COMMAND] [INFO] создаем квартиру с ценой 5000000
+[2026-03-30 12:57:15] [FLAT_REPOSITORY_TRY] [INFO] Квартира записана в PostgreSQL
+[2026-03-30 13:07:20] [EXECUTE_COMMAND _TRY] [ERROR] Ошибка: неизвестная команда!

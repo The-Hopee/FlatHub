@@ -1,16 +1,22 @@
-#include "../../include/factory.hpp"
-#include "../../include/FlatCommand.hpp"
-#include "../../include/LoginCommand.hpp"
+#include "../include/factory.hpp"
+#include "../include/FlatCommand.hpp"
+#include "../include/LoginCommand.hpp"
+#include "../include/HouseCommand.hpp"
+#include "../include/DatabaseManager.hpp"
 
-CommandFactory::CommandFactory(std::shared_ptr<PostgresFlatRepository> repo): repo_(repo)
+CommandFactory::CommandFactory(std::shared_ptr<DatabaseManager> db_manager): db_manager_(db_manager)
 {
     // здесь если мы хотим новый класс создать ( для регистрации юзера например ) то нам тупо надо добавить пару в мапу
     creators_["/create_flat"] = [this](const auto& args){
-        return std::make_unique<CreateFlatCommand>(args, this->repo_);
+        return std::make_unique<CreateFlatCommand>(args, db_manager_->getFlatRepo());
     };
 
-    creators_["/login"] = [](const auto& args){
-        return std::make_unique<CreateLoginCommand>(args);
+    creators_["/login"] = [this](const auto& args){
+        return std::make_unique<CreateLoginCommand>(args /*, db_manager_->getLoginRepo()*/ );
+    };
+
+    creators_["/create_house"] = [this](const auto& args){
+        return std::make_unique<CreateHouseCommand>(args, db_manager_->getHouseRepo());
     };
 }
 
