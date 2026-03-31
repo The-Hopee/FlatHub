@@ -15,20 +15,19 @@ void Client::do_write()
         std::getline(std::cin, command);
 
         if( command.empty() ) continue;
+            
+        if( command.compare("/quit") == 0 )
+        {
+            Logger::Instance().info("CLIENT_WRITE", "Инициализирован выход из сервиса. Отключение...\n");
+            break;
+        }
 
         boost::system::error_code ec;
         boost::asio::write( m_socket, boost::asio::buffer(command.append("\n")), ec);
 
         if( ec )
         {
-            // Лог: ошибка записи. ec.message() вернет текстовую причину ошибки от системы!
             Logger::Instance().error("CLIENT_WRITE", "Ошибка отправки данных: " + ec.message() + "\n");
-            break;
-        }
-            
-        if( command.compare("/quit\n") == 0 ) // Не забудь, что ты выше добавил \n к команде!
-        {
-            Logger::Instance().info("CLIENT", "Инициализирован выход из сервиса. Отключение...\n");
             break;
         }
     }
