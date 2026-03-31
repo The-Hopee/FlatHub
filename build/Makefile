@@ -214,6 +214,30 @@ src/patterns/LoginCommand.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/patterns/LoginCommand.cpp.s
 .PHONY : src/patterns/LoginCommand.cpp.s
 
+src/patterns/RegisterCommand.o: src/patterns/RegisterCommand.cpp.o
+.PHONY : src/patterns/RegisterCommand.o
+
+# target to build an object file
+src/patterns/RegisterCommand.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/patterns/RegisterCommand.cpp.o
+.PHONY : src/patterns/RegisterCommand.cpp.o
+
+src/patterns/RegisterCommand.i: src/patterns/RegisterCommand.cpp.i
+.PHONY : src/patterns/RegisterCommand.i
+
+# target to preprocess a source file
+src/patterns/RegisterCommand.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/patterns/RegisterCommand.cpp.i
+.PHONY : src/patterns/RegisterCommand.cpp.i
+
+src/patterns/RegisterCommand.s: src/patterns/RegisterCommand.cpp.s
+.PHONY : src/patterns/RegisterCommand.s
+
+# target to generate assembly for a file
+src/patterns/RegisterCommand.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/patterns/RegisterCommand.cpp.s
+.PHONY : src/patterns/RegisterCommand.cpp.s
+
 src/patterns/factory.o: src/patterns/factory.cpp.o
 .PHONY : src/patterns/factory.o
 
@@ -312,6 +336,30 @@ src/repository/HouseRepository.s: src/repository/HouseRepository.cpp.s
 src/repository/HouseRepository.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/repository/HouseRepository.cpp.s
 .PHONY : src/repository/HouseRepository.cpp.s
+
+src/repository/UserRepository.o: src/repository/UserRepository.cpp.o
+.PHONY : src/repository/UserRepository.o
+
+# target to build an object file
+src/repository/UserRepository.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/repository/UserRepository.cpp.o
+.PHONY : src/repository/UserRepository.cpp.o
+
+src/repository/UserRepository.i: src/repository/UserRepository.cpp.i
+.PHONY : src/repository/UserRepository.i
+
+# target to preprocess a source file
+src/repository/UserRepository.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/repository/UserRepository.cpp.i
+.PHONY : src/repository/UserRepository.cpp.i
+
+src/repository/UserRepository.s: src/repository/UserRepository.cpp.s
+.PHONY : src/repository/UserRepository.s
+
+# target to generate assembly for a file
+src/repository/UserRepository.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/repository/UserRepository.cpp.s
+.PHONY : src/repository/UserRepository.cpp.s
 
 src/service/client.o: src/service/client.cpp.o
 .PHONY : src/service/client.o
@@ -452,6 +500,9 @@ help:
 	@echo "... src/patterns/LoginCommand.o"
 	@echo "... src/patterns/LoginCommand.i"
 	@echo "... src/patterns/LoginCommand.s"
+	@echo "... src/patterns/RegisterCommand.o"
+	@echo "... src/patterns/RegisterCommand.i"
+	@echo "... src/patterns/RegisterCommand.s"
 	@echo "... src/patterns/factory.o"
 	@echo "... src/patterns/factory.i"
 	@echo "... src/patterns/factory.s"
@@ -464,6 +515,9 @@ help:
 	@echo "... src/repository/HouseRepository.o"
 	@echo "... src/repository/HouseRepository.i"
 	@echo "... src/repository/HouseRepository.s"
+	@echo "... src/repository/UserRepository.o"
+	@echo "... src/repository/UserRepository.i"
+	@echo "... src/repository/UserRepository.s"
 	@echo "... src/service/client.o"
 	@echo "... src/service/client.i"
 	@echo "... src/service/client.s"

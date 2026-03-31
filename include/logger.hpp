@@ -3,6 +3,7 @@
 #include <memory>
 #include <mutex>
 #include <fstream>
+#include <iostream>
 
 class Logger
 {

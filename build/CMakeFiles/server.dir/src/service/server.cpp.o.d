@@ -1117,4 +1117,6 @@ CMakeFiles/server.dir/src/service/server.cpp.o: \
  /usr/include/c++/11/iostream \
  /home/tima/FlatHub/src/service/../../include/DatabaseManager.hpp \
  /home/tima/FlatHub/src/service/../../include/FlatRepository.hpp \
- /home/tima/FlatHub/src/service/../../include/HouseRepository.hpp
+ /home/tima/FlatHub/src/service/../../include/HouseRepository.hpp \
+ /home/tima/FlatHub/src/service/../../include/UserRepository.hpp \
+ /usr/include/c++/11/optional

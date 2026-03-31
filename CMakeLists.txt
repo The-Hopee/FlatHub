@@ -23,9 +23,11 @@ add_executable(server
                 src/patterns/FlatCommand.cpp
                 src/patterns/LoginCommand.cpp
                 src/patterns/HouseCommand.cpp
+                src/patterns/RegisterCommand.cpp
 
                 src/repository/FlatRepository.cpp
                 src/repository/HouseRepository.cpp
+                src/repository/UserRepository.cpp
                 )
 target_include_directories(server PRIVATE ${PQXX_INCLUDE_DIRS})
 target_link_libraries(server PRIVATE

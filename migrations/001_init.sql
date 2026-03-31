@@ -15,5 +15,12 @@ CREATE TABLE flats (
     status VARCHAR(50) DEFAULT 'created'
 );
 
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    login VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    role VARCHAR(255) NOT NULL
+)
+
 -- Создадим один тестовый дом вручную, чтобы в него можно было добавлять квартиры!
 INSERT INTO houses (address, build_year) VALUES ('ул. Пушкина, д. 1', 2026);

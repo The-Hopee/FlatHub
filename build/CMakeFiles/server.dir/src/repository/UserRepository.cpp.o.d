@@ -1,9 +1,8 @@
-CMakeFiles/server.dir/src/patterns/LoginCommand.cpp.o: \
- /home/tima/FlatHub/src/patterns/LoginCommand.cpp \
+CMakeFiles/server.dir/src/repository/UserRepository.cpp.o: \
+ /home/tima/FlatHub/src/repository/UserRepository.cpp \
  /usr/include/stdc-predef.h \
- /home/tima/FlatHub/src/patterns/../../include/LoginCommand.hpp \
- /home/tima/FlatHub/src/patterns/../../include/command.hpp \
- /usr/include/c++/11/vector /usr/include/c++/11/bits/stl_algobase.h \
+ /home/tima/FlatHub/include/../include/UserRepository.hpp \
+ /usr/include/c++/11/memory /usr/include/c++/11/bits/stl_algobase.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
  /usr/include/features.h /usr/include/features-time64.h \
@@ -38,13 +37,6 @@ CMakeFiles/server.dir/src/patterns/LoginCommand.cpp.o: \
  /usr/include/c++/11/bits/stl_uninitialized.h \
  /usr/include/c++/11/ext/alloc_traits.h \
  /usr/include/c++/11/bits/alloc_traits.h \
- /usr/include/c++/11/bits/stl_vector.h \
- /usr/include/c++/11/initializer_list \
- /usr/include/c++/11/bits/stl_bvector.h \
- /usr/include/c++/11/bits/functional_hash.h \
- /usr/include/c++/11/bits/hash_bytes.h \
- /usr/include/c++/11/bits/range_access.h \
- /usr/include/c++/11/bits/vector.tcc /usr/include/c++/11/memory \
  /usr/include/c++/11/bits/stl_tempbuf.h \
  /usr/include/c++/11/bits/stl_raw_storage_iter.h \
  /usr/include/c++/11/bits/align.h /usr/include/c++/11/bit \
@@ -58,10 +50,14 @@ CMakeFiles/server.dir/src/patterns/LoginCommand.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
  /usr/include/c++/11/bits/uses_allocator.h \
  /usr/include/c++/11/bits/unique_ptr.h /usr/include/c++/11/utility \
- /usr/include/c++/11/bits/stl_relops.h /usr/include/c++/11/tuple \
- /usr/include/c++/11/array /usr/include/c++/11/bits/invoke.h \
+ /usr/include/c++/11/bits/stl_relops.h \
+ /usr/include/c++/11/initializer_list /usr/include/c++/11/tuple \
+ /usr/include/c++/11/array /usr/include/c++/11/bits/range_access.h \
+ /usr/include/c++/11/bits/invoke.h \
  /usr/include/c++/11/bits/stl_function.h \
  /usr/include/c++/11/backward/binders.h \
+ /usr/include/c++/11/bits/functional_hash.h \
+ /usr/include/c++/11/bits/hash_bytes.h \
  /usr/include/c++/11/bits/shared_ptr.h /usr/include/c++/11/iosfwd \
  /usr/include/c++/11/bits/stringfwd.h /usr/include/c++/11/bits/postypes.h \
  /usr/include/c++/11/cwchar /usr/include/wchar.h \
@@ -120,16 +116,13 @@ CMakeFiles/server.dir/src/patterns/LoginCommand.cpp.o: \
  /usr/include/c++/11/bits/atomic_lockfree_defines.h \
  /usr/include/c++/11/backward/auto_ptr.h \
  /usr/include/c++/11/pstl/glue_memory_defs.h \
- /usr/include/c++/11/pstl/execution_defs.h /usr/include/c++/11/iostream \
- /usr/include/c++/11/ostream /usr/include/c++/11/ios \
+ /usr/include/c++/11/pstl/execution_defs.h /usr/include/c++/11/string \
  /usr/include/c++/11/bits/char_traits.h /usr/include/c++/11/cstdint \
  /usr/include/c++/11/bits/localefwd.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++locale.h \
  /usr/include/c++/11/clocale /usr/include/locale.h \
  /usr/include/x86_64-linux-gnu/bits/locale.h /usr/include/c++/11/cctype \
- /usr/include/ctype.h /usr/include/c++/11/bits/ios_base.h \
- /usr/include/c++/11/bits/locale_classes.h /usr/include/c++/11/string \
- /usr/include/c++/11/bits/ostream_insert.h \
+ /usr/include/ctype.h /usr/include/c++/11/bits/ostream_insert.h \
  /usr/include/c++/11/bits/cxxabi_forced.h \
  /usr/include/c++/11/bits/basic_string.h /usr/include/c++/11/string_view \
  /usr/include/c++/11/bits/string_view.tcc \
@@ -155,12 +148,21 @@ CMakeFiles/server.dir/src/patterns/LoginCommand.cpp.o: \
  /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
  /usr/include/x86_64-linux-gnu/bits/types/error_t.h \
  /usr/include/c++/11/bits/charconv.h \
- /usr/include/c++/11/bits/basic_string.tcc \
- /usr/include/c++/11/bits/locale_classes.tcc \
+ /usr/include/c++/11/bits/basic_string.tcc /usr/include/c++/11/optional \
+ /usr/include/c++/11/bits/enable_special_members.h \
+ /home/tima/FlatHub/include/../include/logger.hpp \
+ /usr/include/c++/11/mutex /usr/include/c++/11/chrono \
+ /usr/include/c++/11/ratio /usr/include/c++/11/limits \
+ /usr/include/c++/11/ctime /usr/include/c++/11/bits/parse_numbers.h \
  /usr/include/c++/11/system_error \
  /usr/include/x86_64-linux-gnu/c++/11/bits/error_constants.h \
- /usr/include/c++/11/stdexcept /usr/include/c++/11/streambuf \
- /usr/include/c++/11/bits/streambuf.tcc \
+ /usr/include/c++/11/stdexcept /usr/include/c++/11/bits/std_mutex.h \
+ /usr/include/c++/11/bits/unique_lock.h /usr/include/c++/11/fstream \
+ /usr/include/c++/11/istream /usr/include/c++/11/ios \
+ /usr/include/c++/11/bits/ios_base.h \
+ /usr/include/c++/11/bits/locale_classes.h \
+ /usr/include/c++/11/bits/locale_classes.tcc \
+ /usr/include/c++/11/streambuf /usr/include/c++/11/bits/streambuf.tcc \
  /usr/include/c++/11/bits/basic_ios.h \
  /usr/include/c++/11/bits/locale_facets.h /usr/include/c++/11/cwctype \
  /usr/include/wctype.h /usr/include/x86_64-linux-gnu/bits/wctype-wchar.h \
@@ -168,19 +170,61 @@ CMakeFiles/server.dir/src/patterns/LoginCommand.cpp.o: \
  /usr/include/c++/11/bits/streambuf_iterator.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/ctype_inline.h \
  /usr/include/c++/11/bits/locale_facets.tcc \
- /usr/include/c++/11/bits/basic_ios.tcc \
- /usr/include/c++/11/bits/ostream.tcc /usr/include/c++/11/istream \
- /usr/include/c++/11/bits/istream.tcc \
- /home/tima/FlatHub/src/patterns/../../include/UserRepository.hpp \
- /usr/include/c++/11/optional \
- /usr/include/c++/11/bits/enable_special_members.h \
- /home/tima/FlatHub/src/patterns/../../include/logger.hpp \
- /usr/include/c++/11/mutex /usr/include/c++/11/chrono \
- /usr/include/c++/11/ratio /usr/include/c++/11/limits \
- /usr/include/c++/11/ctime /usr/include/c++/11/bits/parse_numbers.h \
- /usr/include/c++/11/bits/std_mutex.h \
- /usr/include/c++/11/bits/unique_lock.h /usr/include/c++/11/fstream \
- /usr/include/c++/11/bits/codecvt.h \
+ /usr/include/c++/11/bits/basic_ios.tcc /usr/include/c++/11/ostream \
+ /usr/include/c++/11/bits/ostream.tcc \
+ /usr/include/c++/11/bits/istream.tcc /usr/include/c++/11/bits/codecvt.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/basic_file.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++io.h \
- /usr/include/c++/11/bits/fstream.tcc
+ /usr/include/c++/11/bits/fstream.tcc /usr/include/c++/11/iostream \
+ /usr/include/pqxx/pqxx /usr/include/pqxx/array \
+ /usr/include/pqxx/array.hxx /usr/include/pqxx/compiler-public.hxx \
+ /usr/include/pqxx/config-public-compiler.h /usr/include/c++/11/ciso646 \
+ /usr/include/pqxx/compiler-internal-pre.hxx \
+ /usr/include/pqxx/internal/encoding_group.hxx \
+ /usr/include/pqxx/internal/encodings.hxx \
+ /usr/include/pqxx/compiler-internal-post.hxx \
+ /usr/include/pqxx/binarystring /usr/include/pqxx/binarystring.hxx \
+ /usr/include/pqxx/result.hxx /usr/include/pqxx/except.hxx \
+ /usr/include/pqxx/util.hxx /usr/include/c++/11/iterator \
+ /usr/include/c++/11/bits/stream_iterator.h /usr/include/c++/11/vector \
+ /usr/include/c++/11/bits/stl_vector.h \
+ /usr/include/c++/11/bits/stl_bvector.h \
+ /usr/include/c++/11/bits/vector.tcc /usr/include/pqxx/strconv.hxx \
+ /usr/include/c++/11/sstream /usr/include/c++/11/bits/sstream.tcc \
+ /usr/include/pqxx/internal/libpq-forward.hxx /usr/include/pqxx/types.hxx \
+ /usr/include/c++/11/cstddef /usr/include/pqxx/connection \
+ /usr/include/pqxx/connection.hxx /usr/include/pqxx/connectionpolicy.hxx \
+ /usr/include/pqxx/basic_connection.hxx \
+ /usr/include/pqxx/connection_base.hxx /usr/include/c++/11/bitset \
+ /usr/include/c++/11/list /usr/include/c++/11/bits/stl_list.h \
+ /usr/include/c++/11/bits/list.tcc /usr/include/c++/11/map \
+ /usr/include/c++/11/bits/stl_tree.h \
+ /usr/include/c++/11/bits/node_handle.h \
+ /usr/include/c++/11/bits/stl_map.h \
+ /usr/include/c++/11/bits/stl_multimap.h \
+ /usr/include/c++/11/bits/erase_if.h /usr/include/pqxx/errorhandler.hxx \
+ /usr/include/pqxx/prepared_statement.hxx \
+ /usr/include/pqxx/internal/statement_parameters.hxx \
+ /usr/include/c++/11/cstring /usr/include/string.h /usr/include/strings.h \
+ /usr/include/pqxx/strconv /usr/include/pqxx/util \
+ /usr/include/pqxx/internal/type_utils.hxx /usr/include/pqxx/version.hxx \
+ /usr/include/pqxx/internal/ignore-deprecated-pre.hxx \
+ /usr/include/pqxx/internal/ignore-deprecated-post.hxx \
+ /usr/include/pqxx/cursor /usr/include/pqxx/cursor.hxx \
+ /usr/include/pqxx/transaction_base.hxx /usr/include/pqxx/isolation.hxx \
+ /usr/include/pqxx/row.hxx /usr/include/pqxx/field.hxx \
+ /usr/include/pqxx/internal/sql_cursor.hxx /usr/include/pqxx/errorhandler \
+ /usr/include/pqxx/except /usr/include/pqxx/largeobject \
+ /usr/include/pqxx/largeobject.hxx /usr/include/pqxx/dbtransaction.hxx \
+ /usr/include/pqxx/nontransaction /usr/include/pqxx/nontransaction.hxx \
+ /usr/include/pqxx/notification /usr/include/pqxx/notification.hxx \
+ /usr/include/pqxx/pipeline /usr/include/pqxx/pipeline.hxx \
+ /usr/include/pqxx/prepared_statement /usr/include/pqxx/result \
+ /usr/include/pqxx/result_iterator.hxx \
+ /usr/include/pqxx/robusttransaction \
+ /usr/include/pqxx/robusttransaction.hxx /usr/include/pqxx/stream_from \
+ /usr/include/pqxx/stream_from.hxx /usr/include/pqxx/stream_base.hxx \
+ /usr/include/pqxx/stream_to /usr/include/pqxx/stream_to.hxx \
+ /usr/include/pqxx/subtransaction /usr/include/pqxx/subtransaction.hxx \
+ /usr/include/pqxx/transaction /usr/include/pqxx/transaction.hxx \
+ /usr/include/pqxx/transactor /usr/include/pqxx/transactor.hxx

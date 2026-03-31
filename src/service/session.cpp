@@ -13,6 +13,10 @@ void Session::do_read()
             if( !ec )
             {
                 std::string client_msg = responce.substr(0,length);
+                
+                if (!client_msg.empty() && client_msg.back() == '\n') client_msg.pop_back();
+
+                if (!client_msg.empty() && client_msg.back() == '\r') client_msg.pop_back();
                 responce.erase(0, length+1);
                 execute_command(client_msg);
                 self->do_read();

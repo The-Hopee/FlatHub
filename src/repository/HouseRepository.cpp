@@ -18,7 +18,7 @@ void PostgresHouseRepository::saveHouse( const std::string& adress, const std::s
 
         W.commit();
 
-        Logger::Instance().info("HOUSE_REPOSITORY_TRY", "Дом записан в PostgreSQL");   
+        Logger::Instance().info("HOUSE_REPOSITORY_TRY", "Дом записан в PostgreSQL\n");   
     }
     catch(const std::exception& e)
     {

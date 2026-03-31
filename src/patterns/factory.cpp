@@ -1,7 +1,10 @@
 #include "../include/factory.hpp"
+
 #include "../include/FlatCommand.hpp"
 #include "../include/LoginCommand.hpp"
 #include "../include/HouseCommand.hpp"
+#include "../include/RegisterCommand.hpp"
+
 #include "../include/DatabaseManager.hpp"
 
 CommandFactory::CommandFactory(std::shared_ptr<DatabaseManager> db_manager): db_manager_(db_manager)
@@ -12,11 +15,15 @@ CommandFactory::CommandFactory(std::shared_ptr<DatabaseManager> db_manager): db_
     };
 
     creators_["/login"] = [this](const auto& args){
-        return std::make_unique<CreateLoginCommand>(args /*, db_manager_->getLoginRepo()*/ );
+        return std::make_unique<CreateLoginCommand>(args , db_manager_->getUserRepo() );
     };
 
     creators_["/create_house"] = [this](const auto& args){
         return std::make_unique<CreateHouseCommand>(args, db_manager_->getHouseRepo());
+    };
+
+    creators_["/register"] = [this]( const auto& args){
+        return std::make_unique<CreateRegisterCommand>(args,db_manager_->getUserRepo());
     };
 }
 
