@@ -254,3 +254,45 @@ Development diary
         successful login works
         invalid password works
         unknown user case works
+
+How to run
+    1. Start PostgreSQL through Docker
+        Example:
+
+        Bash
+
+        docker run --name db_service -e POSTGRES_PASSWORD=secret -p 5432:5432 -d postgres
+    2. Build project
+        Bash
+
+        mkdir build
+        cd build
+        cmake ..
+        make
+    3. Run server
+        Bash
+
+        ./server
+    4. Run client
+        Bash
+
+        ./client
+
+Manual DB checks
+    Examples:
+        Houses
+        Bash: docker exec -it db_service psql -U postgres -d postgres -c "SELECT * FROM houses;"
+        Flats
+        Bash: docker exec -it db_service psql -U postgres -d postgres -c "SELECT * FROM flats;"
+        Users
+        Bash: docker exec -it db_service psql -U postgres -d postgres -c "SELECT * FROM users;"
+
+Notes
+
+This project is developed iteratively:
+
+    1) make it work
+    2) make architecture cleaner
+    3) improve correctness
+    4) improve access control / auth
+    5) improve performance and test coverage
