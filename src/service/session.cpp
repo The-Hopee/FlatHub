@@ -13,7 +13,7 @@ void Session::do_read()
             if( !ec )
             {
                 std::string client_msg = responce.substr(0,length);
-                
+
                 if (!client_msg.empty() && client_msg.back() == '\n') client_msg.pop_back();
 
                 if (!client_msg.empty() && client_msg.back() == '\r') client_msg.pop_back();
@@ -53,7 +53,7 @@ void Session::execute_command( const std::string& line)
 
     try
     {
-        auto command_from_factory = factory->createCommand(command, parse_line);
+        auto command_from_factory = factory->createCommand(command, parse_line, shared_from_this());
 
         if( command_from_factory )
         {
@@ -99,4 +99,14 @@ std::vector<std::string> Session::parse( const std::string& line )
     }
 
     return commands;
+}
+
+void Session::autorize( bool flag, size_t user_id, const std::string& login, const std::string& role )
+{
+    is_autorized = true;
+    id = user_id;
+    current_login = login;
+    current_role = role;
+
+    return;
 }

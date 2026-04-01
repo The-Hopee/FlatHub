@@ -1,6 +1,6 @@
 CMakeFiles/server.dir/src/service/server.cpp.o: \
  /home/tima/FlatHub/src/service/server.cpp /usr/include/stdc-predef.h \
- /home/tima/FlatHub/src/service/../../include/server.hpp \
+ /home/tima/FlatHub/include/../include/server.hpp \
  /usr/include/boost/asio.hpp \
  /usr/include/boost/asio/associated_allocator.hpp \
  /usr/include/boost/asio/detail/config.hpp /usr/include/boost/config.hpp \
@@ -1111,12 +1111,17 @@ CMakeFiles/server.dir/src/service/server.cpp.o: \
  /usr/include/boost/asio/windows/stream_handle.hpp \
  /usr/include/boost/asio/write_at.hpp \
  /usr/include/boost/asio/impl/write_at.hpp \
- /home/tima/FlatHub/src/service/../../include/session.hpp \
- /home/tima/FlatHub/src/service/../../include/factory.hpp \
- /home/tima/FlatHub/src/service/../../include/command.hpp \
+ /home/tima/FlatHub/include/../include/session.hpp \
+ /home/tima/FlatHub/include/../include/factory.hpp \
+ /home/tima/FlatHub/include/../include/command.hpp \
  /usr/include/c++/11/iostream \
- /home/tima/FlatHub/src/service/../../include/DatabaseManager.hpp \
- /home/tima/FlatHub/src/service/../../include/FlatRepository.hpp \
- /home/tima/FlatHub/src/service/../../include/HouseRepository.hpp \
- /home/tima/FlatHub/src/service/../../include/UserRepository.hpp \
- /usr/include/c++/11/optional
+ /home/tima/FlatHub/include/../include/DatabaseManager.hpp \
+ /home/tima/FlatHub/include/../include/FlatRepository.hpp \
+ /home/tima/FlatHub/include/../include/HouseRepository.hpp \
+ /home/tima/FlatHub/include/../include/UserRepository.hpp \
+ /usr/include/c++/11/optional \
+ /home/tima/FlatHub/include/../include/logger.hpp \
+ /usr/include/c++/11/fstream /usr/include/c++/11/bits/codecvt.h \
+ /usr/include/x86_64-linux-gnu/c++/11/bits/basic_file.h \
+ /usr/include/x86_64-linux-gnu/c++/11/bits/c++io.h \
+ /usr/include/c++/11/bits/fstream.tcc

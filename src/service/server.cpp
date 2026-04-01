@@ -1,4 +1,5 @@
-#include "../../include/server.hpp"
+#include "../include/server.hpp"
+#include "../include/logger.hpp"
 
 void Server::do_accept()
 {
@@ -7,12 +8,12 @@ void Server::do_accept()
         {
             if( !ec )
             {
-                // лог: клиент подсоединился
+                Logger::Instance().info("SERVER_ACCEPT", "Клиент подключился");
                 std::make_shared<Session>(std::move(socket), m_factory)->start();
             }
             else
             {
-                // лог: ошибка присоединения клиента
+                Logger::Instance().error("SERVER_ACCEPT", "Ошибка accept: " + ec.message());
             }
 
             do_accept(); // продолжаем принимать подключения клиентов
