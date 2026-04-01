@@ -189,7 +189,6 @@ CMakeFiles/server.dir/src/patterns/factory.cpp.o: \
  /home/tima/FlatHub/include/../include/UserRepository.hpp \
  /usr/include/c++/11/optional \
  /home/tima/FlatHub/include/../include/FlatCommand.hpp \
- /home/tima/FlatHub/include/../include/LoginCommand.hpp \
  /home/tima/FlatHub/include/../include/session.hpp \
  /usr/include/boost/asio.hpp \
  /usr/include/boost/asio/associated_allocator.hpp \
@@ -1122,5 +1121,7 @@ CMakeFiles/server.dir/src/patterns/factory.cpp.o: \
  /usr/include/boost/asio/windows/stream_handle.hpp \
  /usr/include/boost/asio/write_at.hpp \
  /usr/include/boost/asio/impl/write_at.hpp \
+ /home/tima/FlatHub/include/../include/LoginCommand.hpp \
  /home/tima/FlatHub/include/../include/HouseCommand.hpp \
+ /home/tima/FlatHub/include/session.hpp \
  /home/tima/FlatHub/include/../include/RegisterCommand.hpp

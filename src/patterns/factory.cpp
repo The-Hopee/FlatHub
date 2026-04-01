@@ -11,7 +11,7 @@ CommandFactory::CommandFactory(std::shared_ptr<DatabaseManager> db_manager): db_
 {
     // здесь если мы хотим новый класс создать ( для регистрации юзера например ) то нам тупо надо добавить пару в мапу
     creators_["/create_flat"] = [this](const auto& args, std::shared_ptr<Session> session){
-        return std::make_unique<CreateFlatCommand>(args, db_manager_->getFlatRepo());
+        return std::make_unique<CreateFlatCommand>(args, db_manager_->getFlatRepo(), session);
     };
 
     creators_["/login"] = [this](const auto& args, std::shared_ptr<Session> session){
@@ -19,7 +19,7 @@ CommandFactory::CommandFactory(std::shared_ptr<DatabaseManager> db_manager): db_
     };
 
     creators_["/create_house"] = [this](const auto& args, std::shared_ptr<Session> session){
-        return std::make_unique<CreateHouseCommand>(args, db_manager_->getHouseRepo());
+        return std::make_unique<CreateHouseCommand>(args, db_manager_->getHouseRepo(), session);
     };
 
     creators_["/register"] = [this]( const auto& args, std::shared_ptr<Session> session){
