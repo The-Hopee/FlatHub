@@ -195,10 +195,24 @@ CMakeFiles/server.dir/src/patterns/RegisterCommand.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/server.dir/src/patterns/RegisterCommand.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/tima/FlatHub/src/patterns/RegisterCommand.cpp -o CMakeFiles/server.dir/src/patterns/RegisterCommand.cpp.s
 
+CMakeFiles/server.dir/src/patterns/QuitCommand.cpp.o: CMakeFiles/server.dir/flags.make
+CMakeFiles/server.dir/src/patterns/QuitCommand.cpp.o: ../src/patterns/QuitCommand.cpp
+CMakeFiles/server.dir/src/patterns/QuitCommand.cpp.o: CMakeFiles/server.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/tima/FlatHub/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/server.dir/src/patterns/QuitCommand.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/server.dir/src/patterns/QuitCommand.cpp.o -MF CMakeFiles/server.dir/src/patterns/QuitCommand.cpp.o.d -o CMakeFiles/server.dir/src/patterns/QuitCommand.cpp.o -c /home/tima/FlatHub/src/patterns/QuitCommand.cpp
+
+CMakeFiles/server.dir/src/patterns/QuitCommand.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/server.dir/src/patterns/QuitCommand.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/tima/FlatHub/src/patterns/QuitCommand.cpp > CMakeFiles/server.dir/src/patterns/QuitCommand.cpp.i
+
+CMakeFiles/server.dir/src/patterns/QuitCommand.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/server.dir/src/patterns/QuitCommand.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/tima/FlatHub/src/patterns/QuitCommand.cpp -o CMakeFiles/server.dir/src/patterns/QuitCommand.cpp.s
+
 CMakeFiles/server.dir/src/repository/FlatRepository.cpp.o: CMakeFiles/server.dir/flags.make
 CMakeFiles/server.dir/src/repository/FlatRepository.cpp.o: ../src/repository/FlatRepository.cpp
 CMakeFiles/server.dir/src/repository/FlatRepository.cpp.o: CMakeFiles/server.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/tima/FlatHub/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/server.dir/src/repository/FlatRepository.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/tima/FlatHub/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/server.dir/src/repository/FlatRepository.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/server.dir/src/repository/FlatRepository.cpp.o -MF CMakeFiles/server.dir/src/repository/FlatRepository.cpp.o.d -o CMakeFiles/server.dir/src/repository/FlatRepository.cpp.o -c /home/tima/FlatHub/src/repository/FlatRepository.cpp
 
 CMakeFiles/server.dir/src/repository/FlatRepository.cpp.i: cmake_force
@@ -212,7 +226,7 @@ CMakeFiles/server.dir/src/repository/FlatRepository.cpp.s: cmake_force
 CMakeFiles/server.dir/src/repository/HouseRepository.cpp.o: CMakeFiles/server.dir/flags.make
 CMakeFiles/server.dir/src/repository/HouseRepository.cpp.o: ../src/repository/HouseRepository.cpp
 CMakeFiles/server.dir/src/repository/HouseRepository.cpp.o: CMakeFiles/server.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/tima/FlatHub/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/server.dir/src/repository/HouseRepository.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/tima/FlatHub/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/server.dir/src/repository/HouseRepository.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/server.dir/src/repository/HouseRepository.cpp.o -MF CMakeFiles/server.dir/src/repository/HouseRepository.cpp.o.d -o CMakeFiles/server.dir/src/repository/HouseRepository.cpp.o -c /home/tima/FlatHub/src/repository/HouseRepository.cpp
 
 CMakeFiles/server.dir/src/repository/HouseRepository.cpp.i: cmake_force
@@ -226,7 +240,7 @@ CMakeFiles/server.dir/src/repository/HouseRepository.cpp.s: cmake_force
 CMakeFiles/server.dir/src/repository/UserRepository.cpp.o: CMakeFiles/server.dir/flags.make
 CMakeFiles/server.dir/src/repository/UserRepository.cpp.o: ../src/repository/UserRepository.cpp
 CMakeFiles/server.dir/src/repository/UserRepository.cpp.o: CMakeFiles/server.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/tima/FlatHub/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/server.dir/src/repository/UserRepository.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/tima/FlatHub/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/server.dir/src/repository/UserRepository.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/server.dir/src/repository/UserRepository.cpp.o -MF CMakeFiles/server.dir/src/repository/UserRepository.cpp.o.d -o CMakeFiles/server.dir/src/repository/UserRepository.cpp.o -c /home/tima/FlatHub/src/repository/UserRepository.cpp
 
 CMakeFiles/server.dir/src/repository/UserRepository.cpp.i: cmake_force
@@ -248,6 +262,7 @@ server_OBJECTS = \
 "CMakeFiles/server.dir/src/patterns/LoginCommand.cpp.o" \
 "CMakeFiles/server.dir/src/patterns/HouseCommand.cpp.o" \
 "CMakeFiles/server.dir/src/patterns/RegisterCommand.cpp.o" \
+"CMakeFiles/server.dir/src/patterns/QuitCommand.cpp.o" \
 "CMakeFiles/server.dir/src/repository/FlatRepository.cpp.o" \
 "CMakeFiles/server.dir/src/repository/HouseRepository.cpp.o" \
 "CMakeFiles/server.dir/src/repository/UserRepository.cpp.o"
@@ -264,13 +279,14 @@ server: CMakeFiles/server.dir/src/patterns/FlatCommand.cpp.o
 server: CMakeFiles/server.dir/src/patterns/LoginCommand.cpp.o
 server: CMakeFiles/server.dir/src/patterns/HouseCommand.cpp.o
 server: CMakeFiles/server.dir/src/patterns/RegisterCommand.cpp.o
+server: CMakeFiles/server.dir/src/patterns/QuitCommand.cpp.o
 server: CMakeFiles/server.dir/src/repository/FlatRepository.cpp.o
 server: CMakeFiles/server.dir/src/repository/HouseRepository.cpp.o
 server: CMakeFiles/server.dir/src/repository/UserRepository.cpp.o
 server: CMakeFiles/server.dir/build.make
 server: /usr/lib/x86_64-linux-gnu/libboost_system.so.1.74.0
 server: CMakeFiles/server.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/tima/FlatHub/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Linking CXX executable server"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/tima/FlatHub/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Linking CXX executable server"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/server.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

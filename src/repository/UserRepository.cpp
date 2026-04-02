@@ -49,13 +49,9 @@ std::optional<UserData> PostgresUserRepository::findUserByLogin( const std::stri
             ans.password = R[0][2].as<std::string>();
             ans.role     = R[0][3].as<std::string>();
 
-            std::cout << "ans->role size = " << ans.role.size() << std::endl;
-
             if (!ans.role.empty() && ans.role.back() == '\n') ans.role.pop_back();
 
             if (!ans.role.empty() && ans.role.back() == '\r') ans.role.pop_back();
-
-            std::cout << "ans->role size = " << ans.role.size() << std::endl;
 
             return ans;
         }

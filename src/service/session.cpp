@@ -110,3 +110,21 @@ void Session::autorize( bool flag, size_t user_id, const std::string& login, con
 
     return;
 }
+
+void Session::logout()
+{
+    is_autorized = false;
+
+    id = -1;
+
+    current_login.clear();
+
+    current_role.clear();
+
+    close();
+}
+
+void Session::close()
+{
+    m_socket.close();
+}

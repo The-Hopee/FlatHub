@@ -25,6 +25,8 @@ public:
 
     void autorize( bool, size_t, const std::string& , const std::string& );
 
+    void logout();
+
     // getter`s
 
     bool getStatusAutorizate() const { return is_autorized; };
@@ -46,6 +48,8 @@ private:
     size_t id;
     std::string current_login;
     std::string current_role;
+
+    void close();
 };
 
 #endif

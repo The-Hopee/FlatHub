@@ -24,6 +24,7 @@ add_executable(server
                 src/patterns/LoginCommand.cpp
                 src/patterns/HouseCommand.cpp
                 src/patterns/RegisterCommand.cpp
+                src/patterns/QuitCommand.cpp
 
                 src/repository/FlatRepository.cpp
                 src/repository/HouseRepository.cpp

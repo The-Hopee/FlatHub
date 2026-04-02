@@ -214,6 +214,30 @@ src/patterns/LoginCommand.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/patterns/LoginCommand.cpp.s
 .PHONY : src/patterns/LoginCommand.cpp.s
 
+src/patterns/QuitCommand.o: src/patterns/QuitCommand.cpp.o
+.PHONY : src/patterns/QuitCommand.o
+
+# target to build an object file
+src/patterns/QuitCommand.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/patterns/QuitCommand.cpp.o
+.PHONY : src/patterns/QuitCommand.cpp.o
+
+src/patterns/QuitCommand.i: src/patterns/QuitCommand.cpp.i
+.PHONY : src/patterns/QuitCommand.i
+
+# target to preprocess a source file
+src/patterns/QuitCommand.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/patterns/QuitCommand.cpp.i
+.PHONY : src/patterns/QuitCommand.cpp.i
+
+src/patterns/QuitCommand.s: src/patterns/QuitCommand.cpp.s
+.PHONY : src/patterns/QuitCommand.s
+
+# target to generate assembly for a file
+src/patterns/QuitCommand.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/patterns/QuitCommand.cpp.s
+.PHONY : src/patterns/QuitCommand.cpp.s
+
 src/patterns/RegisterCommand.o: src/patterns/RegisterCommand.cpp.o
 .PHONY : src/patterns/RegisterCommand.o
 
@@ -500,6 +524,9 @@ help:
 	@echo "... src/patterns/LoginCommand.o"
 	@echo "... src/patterns/LoginCommand.i"
 	@echo "... src/patterns/LoginCommand.s"
+	@echo "... src/patterns/QuitCommand.o"
+	@echo "... src/patterns/QuitCommand.i"
+	@echo "... src/patterns/QuitCommand.s"
 	@echo "... src/patterns/RegisterCommand.o"
 	@echo "... src/patterns/RegisterCommand.i"
 	@echo "... src/patterns/RegisterCommand.s"

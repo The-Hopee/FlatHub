@@ -5,6 +5,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/server.dir/src/patterns/HouseCommand.cpp.o.d"
   "CMakeFiles/server.dir/src/patterns/LoginCommand.cpp.o"
   "CMakeFiles/server.dir/src/patterns/LoginCommand.cpp.o.d"
+  "CMakeFiles/server.dir/src/patterns/QuitCommand.cpp.o"
+  "CMakeFiles/server.dir/src/patterns/QuitCommand.cpp.o.d"
   "CMakeFiles/server.dir/src/patterns/RegisterCommand.cpp.o"
   "CMakeFiles/server.dir/src/patterns/RegisterCommand.cpp.o.d"
   "CMakeFiles/server.dir/src/patterns/factory.cpp.o"
