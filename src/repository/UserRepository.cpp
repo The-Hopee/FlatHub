@@ -44,7 +44,7 @@ std::optional<UserData> PostgresUserRepository::findUserByLogin( const std::stri
             
             UserData ans;
             
-            ans.id       = R[0][0].as<int>();
+            ans.id       = R[0][0].as<size_t>();
             ans.login    = R[0][1].as<std::string>();
             ans.password = R[0][2].as<std::string>();
             ans.role     = R[0][3].as<std::string>();

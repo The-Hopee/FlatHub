@@ -9,6 +9,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/tima/FlatHub/src/patterns/FlatCommand.cpp" "CMakeFiles/server.dir/src/patterns/FlatCommand.cpp.o" "gcc" "CMakeFiles/server.dir/src/patterns/FlatCommand.cpp.o.d"
+  "/home/tima/FlatHub/src/patterns/GetFlatsCommand.cpp" "CMakeFiles/server.dir/src/patterns/GetFlatsCommand.cpp.o" "gcc" "CMakeFiles/server.dir/src/patterns/GetFlatsCommand.cpp.o.d"
   "/home/tima/FlatHub/src/patterns/HouseCommand.cpp" "CMakeFiles/server.dir/src/patterns/HouseCommand.cpp.o" "gcc" "CMakeFiles/server.dir/src/patterns/HouseCommand.cpp.o.d"
   "/home/tima/FlatHub/src/patterns/LoginCommand.cpp" "CMakeFiles/server.dir/src/patterns/LoginCommand.cpp.o" "gcc" "CMakeFiles/server.dir/src/patterns/LoginCommand.cpp.o.d"
   "/home/tima/FlatHub/src/patterns/QuitCommand.cpp" "CMakeFiles/server.dir/src/patterns/QuitCommand.cpp.o" "gcc" "CMakeFiles/server.dir/src/patterns/QuitCommand.cpp.o.d"

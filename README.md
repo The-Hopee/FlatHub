@@ -299,15 +299,20 @@ Implemented:
 ### 2 April
 Implemented:
 
-    /quit
-    
-    Validated manually:
-        unauthorized user cannot create flat
-        unauthorized user cannot create house
-        authorized user can create flat
-        authorized user cannot create house
-        successful login updates current session state
-        session can be terminated with /quit
+- get_flats
+
+- flat retrieval by `house_id`
+- role-based filtering of flat list:
+- `user` sees only `approved`
+- `moderator` sees all flats
+
+- /quit
+
+Validated manually:
+- unauthorized user cannot access flat list
+- authorized `user` sees only approved flats
+- authorized `moderator` sees all flats
+- quit command closes session correctly
 
 ### Manual DB checks
     Examples:

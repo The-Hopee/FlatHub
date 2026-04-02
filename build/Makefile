@@ -166,6 +166,30 @@ src/patterns/FlatCommand.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/patterns/FlatCommand.cpp.s
 .PHONY : src/patterns/FlatCommand.cpp.s
 
+src/patterns/GetFlatsCommand.o: src/patterns/GetFlatsCommand.cpp.o
+.PHONY : src/patterns/GetFlatsCommand.o
+
+# target to build an object file
+src/patterns/GetFlatsCommand.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/patterns/GetFlatsCommand.cpp.o
+.PHONY : src/patterns/GetFlatsCommand.cpp.o
+
+src/patterns/GetFlatsCommand.i: src/patterns/GetFlatsCommand.cpp.i
+.PHONY : src/patterns/GetFlatsCommand.i
+
+# target to preprocess a source file
+src/patterns/GetFlatsCommand.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/patterns/GetFlatsCommand.cpp.i
+.PHONY : src/patterns/GetFlatsCommand.cpp.i
+
+src/patterns/GetFlatsCommand.s: src/patterns/GetFlatsCommand.cpp.s
+.PHONY : src/patterns/GetFlatsCommand.s
+
+# target to generate assembly for a file
+src/patterns/GetFlatsCommand.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/patterns/GetFlatsCommand.cpp.s
+.PHONY : src/patterns/GetFlatsCommand.cpp.s
+
 src/patterns/HouseCommand.o: src/patterns/HouseCommand.cpp.o
 .PHONY : src/patterns/HouseCommand.o
 
@@ -518,6 +542,9 @@ help:
 	@echo "... src/patterns/FlatCommand.o"
 	@echo "... src/patterns/FlatCommand.i"
 	@echo "... src/patterns/FlatCommand.s"
+	@echo "... src/patterns/GetFlatsCommand.o"
+	@echo "... src/patterns/GetFlatsCommand.i"
+	@echo "... src/patterns/GetFlatsCommand.s"
 	@echo "... src/patterns/HouseCommand.o"
 	@echo "... src/patterns/HouseCommand.i"
 	@echo "... src/patterns/HouseCommand.s"

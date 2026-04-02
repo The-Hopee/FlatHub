@@ -1,6 +1,8 @@
 file(REMOVE_RECURSE
   "CMakeFiles/server.dir/src/patterns/FlatCommand.cpp.o"
   "CMakeFiles/server.dir/src/patterns/FlatCommand.cpp.o.d"
+  "CMakeFiles/server.dir/src/patterns/GetFlatsCommand.cpp.o"
+  "CMakeFiles/server.dir/src/patterns/GetFlatsCommand.cpp.o.d"
   "CMakeFiles/server.dir/src/patterns/HouseCommand.cpp.o"
   "CMakeFiles/server.dir/src/patterns/HouseCommand.cpp.o.d"
   "CMakeFiles/server.dir/src/patterns/LoginCommand.cpp.o"

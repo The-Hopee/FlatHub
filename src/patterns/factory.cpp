@@ -5,6 +5,7 @@
 #include "../include/HouseCommand.hpp"
 #include "../include/RegisterCommand.hpp"
 #include "../include/QuitCommand.hpp"
+#include "../include/GetFlatsCommand.hpp"
 
 #include "../include/DatabaseManager.hpp"
 
@@ -23,12 +24,16 @@ CommandFactory::CommandFactory(std::shared_ptr<DatabaseManager> db_manager): db_
         return std::make_unique<CreateHouseCommand>(args, db_manager_->getHouseRepo(), session);
     };
 
-    creators_["/register"] = [this]( const auto& args, std::shared_ptr<Session> session){
+    creators_["/register"] = [this](const auto& args, std::shared_ptr<Session> session){
         return std::make_unique<CreateRegisterCommand>(args,db_manager_->getUserRepo());
     };
 
-    creators_["/quit"] = [this]( const auto& args, std::shared_ptr<Session> session){
+    creators_["/quit"] = [this](const auto& args, std::shared_ptr<Session> session){
         return std::make_unique<CreateQuitCommand>(session);
+    };
+
+    creators_["/get_flats"] = [this](const auto& args, std::shared_ptr<Session> session){
+        return std::make_unique<CreateGetFlatsCommand>(args, db_manager_->getFlatRepo(), session);
     };
 }
 
