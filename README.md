@@ -59,10 +59,12 @@ Responsible for persistence and SQL logic
 ## Implemented functionality
 
 ### Working now
-- create house (`/create_house`)
-- create flat (`/create_flat`)
+- create house (`/create_house`) — available only for `moderator`
+- create flat (`/create_flat`) — available only for authorized users
 - register user (`/register`)
 - login user (`/login`)
+- session authorization state
+- role-based access control (`user` / `moderator`)
 - PostgreSQL integration through Docker
 - logging to console and file
 - command creation through factory
@@ -108,7 +110,7 @@ Examples of working commands:
 /register admin 777 moderator
 /login pasha 12345
 
-What is already validated
+## What is already validated
 The following flows were manually tested:
 
 House creation
@@ -175,7 +177,7 @@ Flats are linked to houses through house_id, not through address string.
 
 Address is business data, while id is the proper technical identifier.
 
-What I learned so far
+## What I learned so far
     C++ / architecture
     how to split server/client/session into .hpp / .cpp
     how to apply Command pattern
@@ -200,12 +202,40 @@ Databases
     why transaction logic matters
     why foreign keys matter
 
+- how to store auth-state inside session
+- how to propagate session into command handling
+- how role-based access control can be enforced at command execution level
+- why command execution should depend on current session state
+
+## Current project status
+
+At this stage the project already supports:
+- TCP client/server communication
+- command parsing
+- command creation through factory
+- PostgreSQL persistence
+- house creation
+- flat creation
+- user registration
+- user login
+- session authorization state
+- role-based access restrictions
+- logging system
+- repository access through `DatabaseManager`
+
+### Access control
+- unauthorized user cannot create flat
+- unauthorized user cannot create house
+- authorized `user` can create flat
+- authorized `user` cannot create house
+- authorized `moderator` can create house
+
 Development diary
-16 March
+### 16 March
     Added docker-compose.yml
     Planned migrations/init.sql
     Started thinking about project architecture and splitting code into .hpp / .cpp
-17 March
+### 17 March
     Planned split into:
         session
         server
@@ -214,11 +244,11 @@ Development diary
     Started reading about:
         allocators
         metaprogramming
-18 March
+### 18 March
     Split server/client code into .hpp and .cpp
     Started thinking about builder / command-handler style logic
     Continued reading theory and notes
-23 March
+### 23 March
     Added first classes using Command pattern
     Planned command factory
     Started thinking about:
@@ -228,14 +258,14 @@ Development diary
         flats
         database layer
         tokenization and role model
-24 March
+### 24 March
     Implemented:
         fixed CMakeLists.txt
         added main_server.cpp
         added main_client.cpp
         connected PostgreSQL
     started repository layer
-30 March
+### 30 March
     Implemented working database flow:
         /create_house
         /create_flat
@@ -244,7 +274,7 @@ Development diary
     Validated manually through Docker + PostgreSQL console:
         houses are inserted correctly
         flats are inserted correctly
-31 March
+### 31 March
     Implemented user flow:
         UserRepository
         /register
@@ -255,30 +285,20 @@ Development diary
         invalid password works
         unknown user case works
 
-How to run
-    1. Start PostgreSQL through Docker
-        Example:
+### 1 April
+Implemented:
+- session authorization state
+- storing current user info inside session after successful login
+- role-based access control for commands
 
-        Bash
+### Validated manually:
+- unauthorized user cannot create flat
+- unauthorized user cannot create house
+- authorized `user` can create flat
+- authorized `user` cannot create house
+- successful login updates current session state
 
-        docker run --name db_service -e POSTGRES_PASSWORD=secret -p 5432:5432 -d postgres
-    2. Build project
-        Bash
-
-        mkdir build
-        cd build
-        cmake ..
-        make
-    3. Run server
-        Bash
-
-        ./server
-    4. Run client
-        Bash
-
-        ./client
-
-Manual DB checks
+### Manual DB checks
     Examples:
         Houses
         Bash: docker exec -it db_service psql -U postgres -d postgres -c "SELECT * FROM houses;"
@@ -287,7 +307,7 @@ Manual DB checks
         Users
         Bash: docker exec -it db_service psql -U postgres -d postgres -c "SELECT * FROM users;"
 
-Notes
+### Notes
 
 This project is developed iteratively:
 
@@ -296,3 +316,78 @@ This project is developed iteratively:
     3) improve correctness
     4) improve access control / auth
     5) improve performance and test coverage
+
+## How to run
+
+### 1. Start PostgreSQL in Docker
+Run PostgreSQL container:
+
+```bash
+docker run --name db_service -e POSTGRES_PASSWORD=secret -p 5432:5432 -d postgres
+
+If container already exists but is stopped:
+
+```bash
+
+docker start db_service
+
+### 2. Create database schema
+Run SQL manually inside container or use migration file.
+
+### Example manual schema creation:
+
+```bash
+
+docker exec -it db_service psql -U postgres -d postgres
+### Inside PostgreSQL console run:
+
+```sql
+
+CREATE TABLE houses (
+    id SERIAL PRIMARY KEY,
+    address VARCHAR(255) NOT NULL,
+    build_year INT NOT NULL,
+    developer VARCHAR(255),
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+CREATE TABLE flats (
+    id SERIAL PRIMARY KEY,
+    house_id INT NOT NULL REFERENCES houses(id),
+    flat_number INT NOT NULL,
+    price INT NOT NULL,
+    rooms INT NOT NULL,
+    status VARCHAR(50) DEFAULT 'created'
+);
+
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    login VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    role VARCHAR(255) NOT NULL
+);
+
+INSERT INTO houses (address, build_year) VALUES ('ул. Пушкина, д. 1', 2026);
+
+### Exit PostgreSQL console:
+
+```sql
+
+\q
+### 3. Build project
+```bash
+
+mkdir build
+cd build
+cmake ..
+cmake --build .
+### 4. Run server
+```bash
+
+./server
+### 5. Run client
+Open another terminal, go to build and run:
+
+```bash
+
+./client
