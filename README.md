@@ -103,41 +103,43 @@ Current entities:
 
 Examples of working commands:
 
-```text
-/create_house Pushkina_1 2020 PIK
-/create_flat 1 42 3 5000000
-/register pasha 12345 user
-/register admin 777 moderator
-/login pasha 12345
+```text```
+    /create_house Pushkina_1 2020 PIK
+    /create_flat 1 42 3 5000000
+    /register pasha 12345 user
+    /register admin 777 moderator
+    /login pasha 12345
 
 ## What is already validated
-The following flows were manually tested:
+- The following flows were manually tested:`
 
-House creation
-/create_house writes a new row to PostgreSQL
-Flat creation
-/create_flat writes a new row to PostgreSQL
-flat is linked to house through house_id
-Registration
-/register saves user data into users
-Login
-successful login works
-invalid password is handled
-unknown user is handled
-Current project status
-At this stage the project already supports:
+- House creation
+    /create_house writes a new row to PostgreSQL
 
-TCP client/server communication
-command parsing
-command creation through factory
-PostgreSQL persistence
-house creation
-flat creation
-user registration
-user login
-logging system
-repository access through DatabaseManager
-Key design decisions
+## Flat creation
+- /create_flat writes a new row to PostgreSQL
+    flat is linked to house through house_id
+- Registration
+    /register saves user data into users
+- Login
+    successful login works
+    invalid password is handled
+    unknown user is handled
+    Current project status
+    At this stage the project already supports:
+
+- TCP client/server communication
+- command parsing
+- command creation through factory
+- PostgreSQL persistence
+- house creation
+- flat creation
+- user registration
+- user login
+- logging system
+-repository access through DatabaseManager
+- Key design decisions
+
 1. Command pattern
 Each command is represented by a separate class implementing ICommand.
 
@@ -146,6 +148,7 @@ This allows:
 easier extension
 separation of logic
 isolation of business actions
+
 2. Factory method
 CommandFactory maps command strings to concrete command objects.
 
@@ -172,6 +175,7 @@ This avoids:
 data loss on disconnect
 inconsistent state
 delayed persistence bugs
+
 6. House-flat relation
 Flats are linked to houses through house_id, not through address string.
 
@@ -291,6 +295,23 @@ Implemented:
 - storing current user info inside session after successful login
 - role-based access control for commands
 
+### 2 April
+Implemented:
+
+- session authorization state
+- storing current user info inside session after successful login
+- role-based access control for commands
+
+### /quit
+### Validated manually:
+
+- unauthorized user cannot create flat
+- unauthorized user cannot create house
+- authorized user can create flat
+- authorized user cannot create house
+- successful login updates current session state
+- session can be terminated with /quit
+
 ### Validated manually:
 - unauthorized user cannot create flat
 - unauthorized user cannot create house
@@ -322,12 +343,12 @@ This project is developed iteratively:
 ### 1. Start PostgreSQL in Docker
 Run PostgreSQL container:
 
-```bash
+```bash```
 docker run --name db_service -e POSTGRES_PASSWORD=secret -p 5432:5432 -d postgres
 
 If container already exists but is stopped:
 
-```bash
+```bash```
 
 docker start db_service
 
@@ -336,12 +357,12 @@ Run SQL manually inside container or use migration file.
 
 ### Example manual schema creation:
 
-```bash
+```bash```
 
 docker exec -it db_service psql -U postgres -d postgres
 ### Inside PostgreSQL console run:
 
-```sql
+```sql```
 
 CREATE TABLE houses (
     id SERIAL PRIMARY KEY,
@@ -371,23 +392,23 @@ INSERT INTO houses (address, build_year) VALUES ('ул. Пушкина, д. 1', 
 
 ### Exit PostgreSQL console:
 
-```sql
+```sql```
 
 \q
 ### 3. Build project
-```bash
+```bash```
 
 mkdir build
 cd build
 cmake ..
 cmake --build .
 ### 4. Run server
-```bash
+```bash```
 
 ./server
 ### 5. Run client
 Open another terminal, go to build and run:
 
-```bash
+```bash```
 
 ./client
