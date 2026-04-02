@@ -291,6 +291,7 @@ Development diary
 
 ### 1 April
 Implemented:
+
     session authorization state
     storing current user info inside session after successful login
     role-based access control for commands
@@ -298,11 +299,8 @@ Implemented:
 ### 2 April
 Implemented:
 
-    session authorization state
-    storing current user info inside session after successful login
-    role-based access control for commands
-
     /quit
+    
     Validated manually:
         unauthorized user cannot create flat
         unauthorized user cannot create house
@@ -310,13 +308,6 @@ Implemented:
         authorized user cannot create house
         successful login updates current session state
         session can be terminated with /quit
-
-    Validated manually:
-        unauthorized user cannot create flat
-        unauthorized user cannot create house
-        authorized `user` can create flat
-        authorized `user` cannot create house
-        successful login updates current session state
 
 ### Manual DB checks
     Examples:
