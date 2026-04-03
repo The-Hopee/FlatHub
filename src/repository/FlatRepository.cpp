@@ -102,7 +102,7 @@ bool PostgresFlatRepository::takeFlat( size_t flat_id )
 
         if( !R.empty() )
         {
-            Logger::Instance().info("FLAT_REPOSITORY_GET_TRY", "OK: Квартира переведена в статус on_moderation!");
+            Logger::Instance().info("FLAT_REPOSITORY_TAKE_FLAT_TRY", "OK: Квартира переведена в статус on_moderation!");
 
             W.commit();
 
@@ -119,4 +119,39 @@ bool PostgresFlatRepository::takeFlat( size_t flat_id )
         Logger::Instance().error("FLAT_REPOSITORY_TAKE_FLAT_CATCH", "SQL ошибка: " + std::string(e.what()) + "\n");
         return false;
     }   
+}
+
+bool PostgresFlatRepository::UpdateFlatStatus( size_t flat_id, const std::string& status )
+{
+    try
+    {
+        Logger::Instance().info("FLAT_REPOSITORY_UPDATE_FLAT_STATUS_TRY", "Меняем статус...\n");
+
+        pqxx::connection C(conn_str_);
+
+        pqxx::work W(C);
+
+        std::string sql = "UPDATE flats SET status = $1 WHERE id = $2 AND status = 'on_moderation' RETURNING id";
+
+        pqxx::result R = W.exec_params(sql,status, flat_id);
+
+        if( !R.empty() )
+        {
+            Logger::Instance().info("FLAT_REPOSITORY_UPDATE_FLAT_STATUS_TRY", "OK: Квартира переведена в статус " + std::string(status) + "!");
+
+            W.commit();
+
+            return true;
+        }
+        else
+        {
+            Logger::Instance().info("FLAT_REPOSITORY_TAKE_FLAT_TRY", "ERROR: Квартира не может быть переведа в новый статус: либо не существует, либо уже не в статусе on_moderation!");
+            return false;
+        }
+    }
+    catch(const std::exception& e)
+    {
+        Logger::Instance().error("FLAT_REPOSITORY_TAKE_FLAT_CATCH", "SQL ошибка: " + std::string(e.what()) + "\n");
+        return false;
+    }
 }

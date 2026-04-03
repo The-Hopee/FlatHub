@@ -15,6 +15,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/tima/FlatHub/src/patterns/QuitCommand.cpp" "CMakeFiles/server.dir/src/patterns/QuitCommand.cpp.o" "gcc" "CMakeFiles/server.dir/src/patterns/QuitCommand.cpp.o.d"
   "/home/tima/FlatHub/src/patterns/RegisterCommand.cpp" "CMakeFiles/server.dir/src/patterns/RegisterCommand.cpp.o" "gcc" "CMakeFiles/server.dir/src/patterns/RegisterCommand.cpp.o.d"
   "/home/tima/FlatHub/src/patterns/TakeFlatCommand.cpp" "CMakeFiles/server.dir/src/patterns/TakeFlatCommand.cpp.o" "gcc" "CMakeFiles/server.dir/src/patterns/TakeFlatCommand.cpp.o.d"
+  "/home/tima/FlatHub/src/patterns/UpdateFlatStatusCommand.cpp" "CMakeFiles/server.dir/src/patterns/UpdateFlatStatusCommand.cpp.o" "gcc" "CMakeFiles/server.dir/src/patterns/UpdateFlatStatusCommand.cpp.o.d"
   "/home/tima/FlatHub/src/patterns/factory.cpp" "CMakeFiles/server.dir/src/patterns/factory.cpp.o" "gcc" "CMakeFiles/server.dir/src/patterns/factory.cpp.o.d"
   "/home/tima/FlatHub/src/patterns/logger.cpp" "CMakeFiles/server.dir/src/patterns/logger.cpp.o" "gcc" "CMakeFiles/server.dir/src/patterns/logger.cpp.o.d"
   "/home/tima/FlatHub/src/repository/FlatRepository.cpp" "CMakeFiles/server.dir/src/repository/FlatRepository.cpp.o" "gcc" "CMakeFiles/server.dir/src/repository/FlatRepository.cpp.o.d"

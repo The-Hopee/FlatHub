@@ -310,6 +310,30 @@ src/patterns/TakeFlatCommand.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/patterns/TakeFlatCommand.cpp.s
 .PHONY : src/patterns/TakeFlatCommand.cpp.s
 
+src/patterns/UpdateFlatStatusCommand.o: src/patterns/UpdateFlatStatusCommand.cpp.o
+.PHONY : src/patterns/UpdateFlatStatusCommand.o
+
+# target to build an object file
+src/patterns/UpdateFlatStatusCommand.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/patterns/UpdateFlatStatusCommand.cpp.o
+.PHONY : src/patterns/UpdateFlatStatusCommand.cpp.o
+
+src/patterns/UpdateFlatStatusCommand.i: src/patterns/UpdateFlatStatusCommand.cpp.i
+.PHONY : src/patterns/UpdateFlatStatusCommand.i
+
+# target to preprocess a source file
+src/patterns/UpdateFlatStatusCommand.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/patterns/UpdateFlatStatusCommand.cpp.i
+.PHONY : src/patterns/UpdateFlatStatusCommand.cpp.i
+
+src/patterns/UpdateFlatStatusCommand.s: src/patterns/UpdateFlatStatusCommand.cpp.s
+.PHONY : src/patterns/UpdateFlatStatusCommand.s
+
+# target to generate assembly for a file
+src/patterns/UpdateFlatStatusCommand.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/patterns/UpdateFlatStatusCommand.cpp.s
+.PHONY : src/patterns/UpdateFlatStatusCommand.cpp.s
+
 src/patterns/factory.o: src/patterns/factory.cpp.o
 .PHONY : src/patterns/factory.o
 
@@ -584,6 +608,9 @@ help:
 	@echo "... src/patterns/TakeFlatCommand.o"
 	@echo "... src/patterns/TakeFlatCommand.i"
 	@echo "... src/patterns/TakeFlatCommand.s"
+	@echo "... src/patterns/UpdateFlatStatusCommand.o"
+	@echo "... src/patterns/UpdateFlatStatusCommand.i"
+	@echo "... src/patterns/UpdateFlatStatusCommand.s"
 	@echo "... src/patterns/factory.o"
 	@echo "... src/patterns/factory.i"
 	@echo "... src/patterns/factory.s"

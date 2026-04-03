@@ -25,6 +25,8 @@ public:
     std::vector<FlatData> getFlatForHouseID(size_t house_id, const std::string&) const;
 
     bool takeFlat( size_t flat_id );
+
+    bool UpdateFlatStatus( size_t flat_id, const std::string& status );
 private:
     std::string conn_str_;
 };
