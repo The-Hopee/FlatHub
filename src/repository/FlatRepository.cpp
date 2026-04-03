@@ -85,3 +85,38 @@ std::vector<FlatData> PostgresFlatRepository::getFlatForHouseID( size_t house_id
     }
     
 }
+
+bool PostgresFlatRepository::takeFlat( size_t flat_id )
+{
+    try
+    {
+        Logger::Instance().info("FLAT_REPOSITORY_TAKE_FLAT_TRY", "Меняем статус...\n");
+
+        pqxx::connection C(conn_str_);
+
+        pqxx::work W(C);
+
+        std::string sql = "UPDATE flats SET status = 'on_moderation' WHERE id = $1 AND status = 'created' RETURNING id";
+
+        pqxx::result R = W.exec_params(sql,flat_id);
+
+        if( !R.empty() )
+        {
+            Logger::Instance().info("FLAT_REPOSITORY_GET_TRY", "OK: Квартира переведена в статус on_moderation!");
+
+            W.commit();
+
+            return true;
+        }
+        else
+        {
+            Logger::Instance().info("FLAT_REPOSITORY_TAKE_FLAT_TRY", "ERROR: Квартира не может быть взята на модерацию: либо не существует, либо уже не в статусе created!");
+            return false;
+        }
+    }
+    catch(const std::exception& e)
+    {
+        Logger::Instance().error("FLAT_REPOSITORY_TAKE_FLAT_CATCH", "SQL ошибка: " + std::string(e.what()) + "\n");
+        return false;
+    }   
+}

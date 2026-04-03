@@ -11,6 +11,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/server.dir/src/patterns/QuitCommand.cpp.o.d"
   "CMakeFiles/server.dir/src/patterns/RegisterCommand.cpp.o"
   "CMakeFiles/server.dir/src/patterns/RegisterCommand.cpp.o.d"
+  "CMakeFiles/server.dir/src/patterns/TakeFlatCommand.cpp.o"
+  "CMakeFiles/server.dir/src/patterns/TakeFlatCommand.cpp.o.d"
   "CMakeFiles/server.dir/src/patterns/factory.cpp.o"
   "CMakeFiles/server.dir/src/patterns/factory.cpp.o.d"
   "CMakeFiles/server.dir/src/patterns/logger.cpp.o"

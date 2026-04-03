@@ -6,6 +6,7 @@
 #include "../include/RegisterCommand.hpp"
 #include "../include/QuitCommand.hpp"
 #include "../include/GetFlatsCommand.hpp"
+#include "../include/TakeFlatCommand.hpp"
 
 #include "../include/DatabaseManager.hpp"
 
@@ -34,6 +35,10 @@ CommandFactory::CommandFactory(std::shared_ptr<DatabaseManager> db_manager): db_
 
     creators_["/get_flats"] = [this](const auto& args, std::shared_ptr<Session> session){
         return std::make_unique<CreateGetFlatsCommand>(args, db_manager_->getFlatRepo(), session);
+    };
+
+    creators_["/take_flat"] = [this]( const auto& args, std::shared_ptr<Session> session){
+        return std::make_unique<CreateTakeFlatCommand>(args, db_manager_->getFlatRepo(), session);
     };
 }
 

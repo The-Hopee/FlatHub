@@ -26,6 +26,7 @@ add_executable(server
                 src/patterns/RegisterCommand.cpp
                 src/patterns/QuitCommand.cpp
                 src/patterns/GetFlatsCommand.cpp
+                src/patterns/TakeFlatCommand.cpp
 
                 src/repository/FlatRepository.cpp
                 src/repository/HouseRepository.cpp

@@ -23,6 +23,8 @@ public:
     void saveFlat(int house_id, int flat_num, int rooms, int price);
 
     std::vector<FlatData> getFlatForHouseID(size_t house_id, const std::string&) const;
+
+    bool takeFlat( size_t flat_id );
 private:
     std::string conn_str_;
 };
