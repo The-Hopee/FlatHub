@@ -35,5 +35,7 @@ void CreateLoginCommand::execute()
     {
         session_->autorize(true, ans->id, ans->login, ans->role);
         session_->do_write("OK: Логин верный, роль = " + ans->role + "\n");
+        session_->setToken();
+        session_->do_write("TOKEN: " + session_->getToken() + "\n");
     }
 }

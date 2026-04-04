@@ -121,10 +121,31 @@ void Session::logout()
 
     current_role.clear();
 
+    current_token.clear();
+
     close();
 }
 
 void Session::close()
 {
     m_socket.close();
+}
+
+void Session::setToken()
+{
+    static std::random_device rd;
+    static std::mt19937 gen(rd());
+    static std::uniform_int_distribution<int> dist(10000, 99999);
+
+    current_token = "TOKEN_" + current_login +"_" + std::to_string(std::time(nullptr)) + "_" + std::to_string(dist(gen));
+}
+
+const std::string& Session::getToken() const
+{
+    return current_token;
+}
+
+bool Session::checkToken( const std::string& token ) const
+{
+    return token == current_token;
 }

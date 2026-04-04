@@ -17,7 +17,37 @@ void Client::do_write()
         if( command.empty() ) continue;
 
         boost::system::error_code ec;
-        boost::asio::write( m_socket, boost::asio::buffer(command + "\n"), ec);
+
+        if( command == "/quit" )
+        {
+            boost::asio::write( m_socket, boost::asio::buffer(command + "\n"), ec);   
+        }
+        else if( command.find("/login") != std::string::npos ||
+            command.find("/register") != std::string::npos )
+        {
+            size_t pos = command.find(' ');
+            if( pos != std::string::npos )
+            {
+                boost::asio::write( m_socket, boost::asio::buffer(command + "\n"), ec);
+            }
+            else
+            {
+                Logger::Instance().error("CLIENT_WRITE", "Указана пустая команда! Отказ.");
+            }
+        }
+        else
+        {
+            size_t pos = command.find(' '); // ищем первый пробел после команды
+            if( pos != std::string::npos )
+            {
+                command.insert(pos+1, token + " "); // вставляем наш токен после пробела
+                boost::asio::write( m_socket, boost::asio::buffer(command + "\n"), ec);
+            }
+            else
+            {
+                Logger::Instance().error("CLIENT_WRITE", "Указана пустая команда! Отказ.");
+            }
+        }
 
         if( ec )
         {
@@ -58,7 +88,23 @@ void Client::do_read()
             }
 
             // Выводим ответ от сервера пользователю
-            std::cout.write(buffer, length);
+            std::string ans{buffer, length};
+
+            if( ans.find("TOKEN: ") != std::string::npos )
+            {
+                size_t pos = ans.find(' ');
+
+                if( pos != std::string::npos )
+                {
+                    token = ans.substr(pos+1);
+
+                    if (!token.empty() && token.back() == '\n') token.pop_back();
+
+                    if (!token.empty() && token.back() == '\r') token.pop_back();
+                }
+            }
+
+            std::cout << ans;
             std::cout << std::flush;
         }
         catch(const std::exception& e)

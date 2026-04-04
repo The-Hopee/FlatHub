@@ -41,6 +41,8 @@ private:
 
     std::thread m_read_thread;
 
+    std::string token;
+
     void do_read();
     
     void do_write();

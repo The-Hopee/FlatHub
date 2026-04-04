@@ -9,6 +9,8 @@ class CreateHouseCommand : public ICommand
 private:
     std::string adress, date_of_build, builder;
 
+    std::string token;
+
     std::shared_ptr<PostgresHouseRepository> repo_;
 
     std::shared_ptr<Session> session_;

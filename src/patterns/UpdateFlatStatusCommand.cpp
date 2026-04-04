@@ -4,13 +4,14 @@
 CreateUpdateFlatStatusCommand::CreateUpdateFlatStatusCommand( const std::vector<std::string>& args, 
 std::shared_ptr<PostgresFlatRepository> repo, std::shared_ptr<Session> session ): repo_(repo), session_(session)
 {
-    if( args.size() != 2 ) throw std::invalid_argument("Некорректное кол-во аргументов!");
+    if( args.size() != 3 ) throw std::invalid_argument("Некорректное кол-во аргументов!");
 
-    id_flat = std::stoi(args[0]);
+    token = args[0];
+    id_flat = std::stoi(args[1]);
 
-    if( args[1] == "approved" || args[1] == "declined" )
+    if( args[2] == "approved" || args[2] == "declined" )
     {
-        status = args[1];
+        status = args[2];
     }
     else
     {
@@ -20,7 +21,7 @@ std::shared_ptr<PostgresFlatRepository> repo, std::shared_ptr<Session> session )
 
 void CreateUpdateFlatStatusCommand::execute()
 {
-    if(session_->getStatusAutorizate() && session_->getCurrentRole() == "moderator")
+    if(session_->getStatusAutorizate() && session_->getCurrentRole() == "moderator" && session_->checkToken(token))
     {
         bool ans = repo_->UpdateFlatStatus(id_flat, status);
 
@@ -37,8 +38,8 @@ void CreateUpdateFlatStatusCommand::execute()
     }
     else
     {
-        Logger::Instance().info("CREATE_TAKE_FLAT_COMMAND","ERROR: Пользователь не авторизован или не является модератором!" );
-        session_->do_write("ERROR: Пользователь не авторизован или не является модератором!\n");
+        Logger::Instance().info("CREATE_TAKE_FLAT_COMMAND","ERROR: Пользователь не авторизован или не является модератором или нет токена!" );
+        session_->do_write("ERROR: Пользователь не авторизован или не является модератором или нет токена!\n");
     }
 
     return;

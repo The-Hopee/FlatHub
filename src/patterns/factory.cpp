@@ -56,6 +56,6 @@ std::unique_ptr<ICommand> CommandFactory::createCommand(const std::string& name,
     {
         return it->second(args,session); // возвращаем нашу функцию
     }
-
+    session->do_write("ERROR: Ошибка. Неизвестная комманда!\n");
     return nullptr; // Иначе ноль указатель
 }

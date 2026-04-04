@@ -4,14 +4,15 @@
 CreateTakeFlatCommand::CreateTakeFlatCommand( const std::vector<std::string>& args, 
 std::shared_ptr<PostgresFlatRepository> repo, std::shared_ptr<Session> session ): repo_(repo), session_(session)
 {
-    if( args.size() != 1 ) throw std::invalid_argument("Некорректное кол-во аргументов!");
+    if( args.size() != 2 ) throw std::invalid_argument("Некорректное кол-во аргументов!");
 
-    id_flat = std::stoi(args[0]);
+    token = args[0];
+    id_flat = std::stoi(args[1]);
 }
 
 void CreateTakeFlatCommand::execute()
 {
-    if(session_->getStatusAutorizate() && session_->getCurrentRole() == "moderator")
+    if(session_->getStatusAutorizate() && session_->getCurrentRole() == "moderator" && session_->checkToken(token))
     {
         bool ans = repo_->takeFlat(id_flat);
 
@@ -28,8 +29,8 @@ void CreateTakeFlatCommand::execute()
     }
     else
     {
-        Logger::Instance().info("CREATE_TAKE_FLAT_COMMAND","ERROR: Пользователь не авторизован или не является модератором!" );
-        session_->do_write("ERROR: Пользователь не авторизован или не является модератором!\n");
+        Logger::Instance().info("CREATE_TAKE_FLAT_COMMAND","ERROR: Пользователь не авторизован или не является модератором или нет токена!" );
+        session_->do_write("ERROR: Пользователь не авторизован или не является модератором или нет токена!\n");
     }
 
     return;

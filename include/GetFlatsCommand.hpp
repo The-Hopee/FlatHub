@@ -9,6 +9,8 @@ class CreateGetFlatsCommand: public ICommand
 private:
     size_t house_id;
 
+    std::string token;
+
     std::shared_ptr<Session> session_;
 
     std::shared_ptr<PostgresFlatRepository> repo_;

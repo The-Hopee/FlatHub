@@ -5,14 +5,15 @@ CreateGetFlatsCommand::CreateGetFlatsCommand(const std::vector<std::string>& arg
                             std::shared_ptr<PostgresFlatRepository> repo,
                             std::shared_ptr<Session> session): repo_(repo), session_(session)
 {
-    if( args.size() != 1 ) throw std::invalid_argument("Неверное кол-во аргументов!");
+    if( args.size() != 2 ) throw std::invalid_argument("Неверное кол-во аргументов!");
 
-    house_id = std::stoi(args[0]);
+    token = args[0];
+    house_id = std::stoi(args[1]);
 }
 
 void CreateGetFlatsCommand::execute()
 {
-    if( session_->getStatusAutorizate() && !session_->getCurrentRole().empty() )
+    if( session_->getStatusAutorizate() && !session_->getCurrentRole().empty() && session_->checkToken(token) )
     {
         Logger::Instance().info("CREATE_GET_FLATS_COMMAND_EXECUTE", "Ищем квартиры по адресу: " + std::to_string(house_id));
 
@@ -46,9 +47,9 @@ void CreateGetFlatsCommand::execute()
     }
     else
     {
-        Logger::Instance().error("CREATE_GET_FLATS_COMMAND_EXECUTE", "ERROR Пользователь не авторизован или не указаны данные о текущей роли!");
+        Logger::Instance().error("CREATE_GET_FLATS_COMMAND_EXECUTE", "ERROR Пользователь не авторизован или не указаны данные о текущей роли или нет токена!");
 
-        session_->do_write("ERROR: Пользователь не авторизован или не указаны данные о текущей роли!\n");
+        session_->do_write("ERROR: Пользователь не авторизован или не указаны данные о текущей роли или нет токена!\n");
 
         return;
     }

@@ -4,6 +4,8 @@
 #include <boost/asio.hpp>
 #include <boost/asio/ip/tcp.hpp>
 #include <vector>
+#include <random>
+#include <ctime>
 #include "factory.hpp"
 
 using boost::asio::ip::tcp;
@@ -12,7 +14,7 @@ class Session: public std::enable_shared_from_this<Session>
 {
 public:
     explicit Session(tcp::socket socket, std::shared_ptr<CommandFactory> factory): m_socket(std::move(socket)), factory(factory),
-    is_autorized(false), id(-1), current_login(""), current_role("") {}
+    is_autorized(false), id(-1), current_login(""), current_role("") { }
 
     void do_read();
 
@@ -34,6 +36,11 @@ public:
     const std::string getCurrentLogin() const { return current_login; }
     const std::string getCurrentRole() const { return current_role; }
 
+    // functions for tokenization
+    void setToken();
+    const std::string& getToken() const;
+    bool checkToken(const std::string& token) const;
+
 private:
     tcp::socket m_socket;
     std::string responce;
@@ -48,6 +55,7 @@ private:
     size_t id;
     std::string current_login;
     std::string current_role;
+    std::string current_token;
 
     void close();
 };

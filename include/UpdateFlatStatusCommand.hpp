@@ -10,6 +10,8 @@ private:
     size_t id_flat;
     std::string status;
 
+    std::string token;
+
     std::shared_ptr<PostgresFlatRepository> repo_;
 
     std::shared_ptr<Session> session_;
