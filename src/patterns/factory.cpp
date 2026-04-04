@@ -8,6 +8,7 @@
 #include "../include/GetFlatsCommand.hpp"
 #include "../include/TakeFlatCommand.hpp"
 #include "../include/UpdateFlatStatusCommand.hpp"
+#include "../include/CommandsCommand.hpp"
 
 #include "../include/DatabaseManager.hpp"
 
@@ -44,6 +45,9 @@ CommandFactory::CommandFactory(std::shared_ptr<DatabaseManager> db_manager): db_
 
     creators_["/update_flat_status"] = [this]( const auto& args, std::shared_ptr<Session> session){
         return std::make_unique<CreateUpdateFlatStatusCommand>(args, db_manager_->getFlatRepo(),session);
+    };
+    creators_["/commands"] = [this]( const auto& args, std::shared_ptr<Session> session){
+        return std::make_unique<CreateCommandsCommand>(session);
     };
 }
 

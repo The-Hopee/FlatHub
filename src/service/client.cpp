@@ -18,7 +18,7 @@ void Client::do_write()
 
         boost::system::error_code ec;
 
-        if( command == "/quit" )
+        if( command == "/quit" || command == "/commands" )
         {
             boost::asio::write( m_socket, boost::asio::buffer(command + "\n"), ec);   
         }

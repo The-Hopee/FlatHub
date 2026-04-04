@@ -142,6 +142,30 @@ client/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/build
 .PHONY : client/fast
 
+src/patterns/CommandsCommand.o: src/patterns/CommandsCommand.cpp.o
+.PHONY : src/patterns/CommandsCommand.o
+
+# target to build an object file
+src/patterns/CommandsCommand.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/patterns/CommandsCommand.cpp.o
+.PHONY : src/patterns/CommandsCommand.cpp.o
+
+src/patterns/CommandsCommand.i: src/patterns/CommandsCommand.cpp.i
+.PHONY : src/patterns/CommandsCommand.i
+
+# target to preprocess a source file
+src/patterns/CommandsCommand.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/patterns/CommandsCommand.cpp.i
+.PHONY : src/patterns/CommandsCommand.cpp.i
+
+src/patterns/CommandsCommand.s: src/patterns/CommandsCommand.cpp.s
+.PHONY : src/patterns/CommandsCommand.s
+
+# target to generate assembly for a file
+src/patterns/CommandsCommand.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/patterns/CommandsCommand.cpp.s
+.PHONY : src/patterns/CommandsCommand.cpp.s
+
 src/patterns/FlatCommand.o: src/patterns/FlatCommand.cpp.o
 .PHONY : src/patterns/FlatCommand.o
 
@@ -587,6 +611,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... client"
 	@echo "... server"
+	@echo "... src/patterns/CommandsCommand.o"
+	@echo "... src/patterns/CommandsCommand.i"
+	@echo "... src/patterns/CommandsCommand.s"
 	@echo "... src/patterns/FlatCommand.o"
 	@echo "... src/patterns/FlatCommand.i"
 	@echo "... src/patterns/FlatCommand.s"

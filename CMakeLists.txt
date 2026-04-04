@@ -28,6 +28,7 @@ add_executable(server
                 src/patterns/GetFlatsCommand.cpp
                 src/patterns/TakeFlatCommand.cpp
                 src/patterns/UpdateFlatStatusCommand.cpp
+                src/patterns/CommandsCommand.cpp
 
                 src/repository/FlatRepository.cpp
                 src/repository/HouseRepository.cpp
