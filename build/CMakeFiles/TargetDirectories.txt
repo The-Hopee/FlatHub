@@ -1,4 +1,6 @@
 /home/tima/FlatHub/build/CMakeFiles/server.dir
 /home/tima/FlatHub/build/CMakeFiles/client.dir
+/home/tima/FlatHub/build/CMakeFiles/tests.dir
+/home/tima/FlatHub/build/CMakeFiles/test.dir
 /home/tima/FlatHub/build/CMakeFiles/edit_cache.dir
 /home/tima/FlatHub/build/CMakeFiles/rebuild_cache.dir

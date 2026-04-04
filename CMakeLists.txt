@@ -7,9 +7,12 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Boost REQUIRED COMPONENTS system)
 find_package(Threads REQUIRED)
+find_package(GTest REQUIRED)
 
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(PQXX REQUIRED libpqxx)
+
+enable_testing()
 
 include_directories(include)
 
@@ -48,3 +51,22 @@ add_executable(client
 target_link_libraries(client PRIVATE
                              Boost::system
                              Threads::Threads)
+
+# =========================
+# TESTS
+# =========================
+add_executable(tests
+                tests/tests.cpp
+                src/repository/UserRepository.cpp
+                src/repository/FlatRepository.cpp
+                src/patterns/logger.cpp
+              )
+
+target_include_directories(tests PRIVATE ${PQXX_INCLUDE_DIRS})
+target_link_libraries(tests PRIVATE
+                        GTest::gtest
+                        GTest::gtest_main
+                        ${PQXX_LIBRARIES}
+                        Threads::Threads)
+
+add_test(NAME UserRepositoryTests COMMAND tests)

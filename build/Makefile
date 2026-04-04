@@ -65,6 +65,16 @@ CMAKE_BINARY_DIR = /home/tima/FlatHub/build
 #=============================================================================
 # Targets provided globally by CMake.
 
+# Special rule for the target test
+test:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
+	/usr/bin/ctest --force-new-ctest-process $(ARGS)
+.PHONY : test
+
+# Special rule for the target test
+test/fast: test
+.PHONY : test/fast
+
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
@@ -141,6 +151,19 @@ client: cmake_check_build_system
 client/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/build
 .PHONY : client/fast
+
+#=============================================================================
+# Target rules for targets named tests
+
+# Build rule for target.
+tests: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 tests
+.PHONY : tests
+
+# fast build rule for target.
+tests/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/build
+.PHONY : tests/fast
 
 src/patterns/CommandsCommand.o: src/patterns/CommandsCommand.cpp.o
 .PHONY : src/patterns/CommandsCommand.o
@@ -389,6 +412,7 @@ src/patterns/logger.o: src/patterns/logger.cpp.o
 src/patterns/logger.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/patterns/logger.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/patterns/logger.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/src/patterns/logger.cpp.o
 .PHONY : src/patterns/logger.cpp.o
 
 src/patterns/logger.i: src/patterns/logger.cpp.i
@@ -398,6 +422,7 @@ src/patterns/logger.i: src/patterns/logger.cpp.i
 src/patterns/logger.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/patterns/logger.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/patterns/logger.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/src/patterns/logger.cpp.i
 .PHONY : src/patterns/logger.cpp.i
 
 src/patterns/logger.s: src/patterns/logger.cpp.s
@@ -407,6 +432,7 @@ src/patterns/logger.s: src/patterns/logger.cpp.s
 src/patterns/logger.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/patterns/logger.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/patterns/logger.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/src/patterns/logger.cpp.s
 .PHONY : src/patterns/logger.cpp.s
 
 src/repository/FlatRepository.o: src/repository/FlatRepository.cpp.o
@@ -415,6 +441,7 @@ src/repository/FlatRepository.o: src/repository/FlatRepository.cpp.o
 # target to build an object file
 src/repository/FlatRepository.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/repository/FlatRepository.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/src/repository/FlatRepository.cpp.o
 .PHONY : src/repository/FlatRepository.cpp.o
 
 src/repository/FlatRepository.i: src/repository/FlatRepository.cpp.i
@@ -423,6 +450,7 @@ src/repository/FlatRepository.i: src/repository/FlatRepository.cpp.i
 # target to preprocess a source file
 src/repository/FlatRepository.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/repository/FlatRepository.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/src/repository/FlatRepository.cpp.i
 .PHONY : src/repository/FlatRepository.cpp.i
 
 src/repository/FlatRepository.s: src/repository/FlatRepository.cpp.s
@@ -431,6 +459,7 @@ src/repository/FlatRepository.s: src/repository/FlatRepository.cpp.s
 # target to generate assembly for a file
 src/repository/FlatRepository.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/repository/FlatRepository.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/src/repository/FlatRepository.cpp.s
 .PHONY : src/repository/FlatRepository.cpp.s
 
 src/repository/HouseRepository.o: src/repository/HouseRepository.cpp.o
@@ -463,6 +492,7 @@ src/repository/UserRepository.o: src/repository/UserRepository.cpp.o
 # target to build an object file
 src/repository/UserRepository.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/repository/UserRepository.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/src/repository/UserRepository.cpp.o
 .PHONY : src/repository/UserRepository.cpp.o
 
 src/repository/UserRepository.i: src/repository/UserRepository.cpp.i
@@ -471,6 +501,7 @@ src/repository/UserRepository.i: src/repository/UserRepository.cpp.i
 # target to preprocess a source file
 src/repository/UserRepository.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/repository/UserRepository.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/src/repository/UserRepository.cpp.i
 .PHONY : src/repository/UserRepository.cpp.i
 
 src/repository/UserRepository.s: src/repository/UserRepository.cpp.s
@@ -479,6 +510,7 @@ src/repository/UserRepository.s: src/repository/UserRepository.cpp.s
 # target to generate assembly for a file
 src/repository/UserRepository.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/repository/UserRepository.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/src/repository/UserRepository.cpp.s
 .PHONY : src/repository/UserRepository.cpp.s
 
 src/service/client.o: src/service/client.cpp.o
@@ -601,6 +633,30 @@ src/service/session.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/service/session.cpp.s
 .PHONY : src/service/session.cpp.s
 
+tests/tests.o: tests/tests.cpp.o
+.PHONY : tests/tests.o
+
+# target to build an object file
+tests/tests.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/tests/tests.cpp.o
+.PHONY : tests/tests.cpp.o
+
+tests/tests.i: tests/tests.cpp.i
+.PHONY : tests/tests.i
+
+# target to preprocess a source file
+tests/tests.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/tests/tests.cpp.i
+.PHONY : tests/tests.cpp.i
+
+tests/tests.s: tests/tests.cpp.s
+.PHONY : tests/tests.s
+
+# target to generate assembly for a file
+tests/tests.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/tests/tests.cpp.s
+.PHONY : tests/tests.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -609,8 +665,10 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... test"
 	@echo "... client"
 	@echo "... server"
+	@echo "... tests"
 	@echo "... src/patterns/CommandsCommand.o"
 	@echo "... src/patterns/CommandsCommand.i"
 	@echo "... src/patterns/CommandsCommand.s"
@@ -668,6 +726,9 @@ help:
 	@echo "... src/service/session.o"
 	@echo "... src/service/session.i"
 	@echo "... src/service/session.s"
+	@echo "... tests/tests.o"
+	@echo "... tests/tests.i"
+	@echo "... tests/tests.s"
 .PHONY : help
 
 
