@@ -4,7 +4,11 @@
 CreateUpdateFlatStatusCommand::CreateUpdateFlatStatusCommand( const std::vector<std::string>& args, 
 std::shared_ptr<PostgresFlatRepository> repo, std::shared_ptr<Session> session ): repo_(repo), session_(session)
 {
-    if( args.size() != 3 ) throw std::invalid_argument("Некорректное кол-во аргументов!");
+    if( args.size() != 3 )
+    {
+        session_->do_write("Неверное кол-во аргументов!");
+        throw std::invalid_argument("Неверное кол-во аргументов!");
+    }
 
     token = args[0];
     id_flat = std::stoi(args[1]);

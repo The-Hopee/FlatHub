@@ -18,11 +18,11 @@ void PostgresHouseRepository::saveHouse( const std::string& adress, const std::s
 
         W.commit();
 
-        Logger::Instance().info("HOUSE_REPOSITORY_TRY", "Дом записан в PostgreSQL\n");   
+        Logger::Instance().info("HOUSE_REPOSITORY_TRY", "Дом записан в PostgreSQL");   
     }
     catch(const std::exception& e)
     {
-        Logger::Instance().error("HOUSE_REPOSITORY_CATCH", "SQL ошибка: " + std::string(e.what()) + "\n");
+        Logger::Instance().error("HOUSE_REPOSITORY_CATCH", "SQL ошибка: " + std::string(e.what()));
     }
     
 }

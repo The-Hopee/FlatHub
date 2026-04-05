@@ -20,12 +20,13 @@ public:
     Logger& operator=(Logger&&) = delete;
 
     // Виды логов
-    void info(const std::string& component, const std::string& msg) { log(component,"INFO", msg); }
-    void error(const std::string& component, const std::string& msg) { log(component,"ERROR", msg); }
-    void debug(const std::string& component, const std::string& msg) { log(component,"DEBUG", msg); }
+    void info(const std::string_view component, const std::string_view msg) { log(component,"INFO", msg); }
+    void error(const std::string_view component, const std::string_view msg) { log(component,"ERROR", msg); }
+    void debug(const std::string_view component, const std::string_view msg) { log(component,"DEBUG", msg); }
 private:
     Logger()
     {
+        log_file.open("../logs/server.log", std::ios::app );
         if (!log_file.is_open()) 
         {
             std::cerr << "LOGGER ERROR: file was not opened\n";
@@ -43,7 +44,7 @@ private:
     std::mutex m;
     std::ofstream log_file;
 
-    void log(const std::string&, const std::string&, const std::string&);
+    void log(const std::string_view, const std::string_view, const std::string_view);
 };
 
 #endif

@@ -3,7 +3,7 @@
 #include <iostream>
 #include <iomanip>
 
-void Logger::log(const std::string& log_from, const std::string& type_log, const std::string& log_msg)
+void Logger::log(const std::string_view log_from, const std::string_view type_log, const std::string_view log_msg)
 {
     auto now = std::chrono::system_clock::now();
     auto time = std::chrono::system_clock::to_time_t(now);

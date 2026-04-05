@@ -63,12 +63,18 @@ Responsible for persistence and SQL logic
 - create flat (`/create_flat`) — available only for authorized users
 - register user (`/register`)
 - login user (`/login`)
+- get flats by house id (`/get_flats`)
+- take flat to moderation (`/take_flat`) — available only for `moderator`
+- update flat status (`/update_flat_status`) — available only for `moderator`
+- quit session (`/quit`)
 - session authorization state
 - role-based access control (`user` / `moderator`)
+- token-based command validation
 - PostgreSQL integration through Docker
 - logging to console and file
 - command creation through factory
 - database manager for repositories
+- Google Test integration
 
 ---
 
@@ -99,16 +105,21 @@ Current entities:
 
 ---
 
-## Current command format
+### Current command format
 
-Examples of working commands:
+## Examples of working commands:
 
 ```text```
-    /create_house Pushkina_1 2020 PIK
-    /create_flat 1 42 3 5000000
-    /register pasha 12345 user
-    /register admin 777 moderator
-    /login pasha 12345
+- /create_house Pushkina_1 2020 PIK
+- /create_flat 1 42 3 5000000
+- /register pasha 12345 user
+- /register admin 777 moderator
+- /login pasha 12345
+- /get_flats 1
+- /take_flat 2
+- /update_flat_status 2 approved
+- /update_flat_status 3 declined
+- /quit
 
 ## What is already validated
 - The following flows were manually tested:`
@@ -139,6 +150,25 @@ Examples of working commands:
 - logging system
 -repository access through DatabaseManager
 - Key design decisions
+
+## Flat moderation
+- unauthorized user cannot take flat to moderation
+- authorized `user` cannot take flat to moderation
+- authorized `moderator` can take flat to moderation
+- flat can only be taken when current status is `created`
+- flat status can be changed from `on_moderation` to `approved`
+- flat status can be changed from `on_moderation` to `declined`
+- flat cannot be updated if it is not in `on_moderation`
+
+## Tokenization
+- token is generated after successful login
+- token is stored in current session
+- protected commands require valid token
+- token is cleared after `/quit`
+
+## Tests
+- repository layer is covered by Google Test integration tests
+- tests are executed against separate PostgreSQL test database
 
 1. Command pattern
 Each command is represented by a separate class implementing ICommand.
@@ -210,6 +240,12 @@ Databases
 - how to propagate session into command handling
 - how role-based access control can be enforced at command execution level
 - why command execution should depend on current session state
+- how to keep auth-state inside session
+- how to propagate current session into command execution
+- how to enforce role-based access inside commands
+- how to implement simple token-based validation
+- how to test repository logic with Google Test against isolated PostgreSQL test database
+- how to use PostgreSQL transactional logic for moderation flow
 
 ## Current project status
 
@@ -222,8 +258,13 @@ At this stage the project already supports:
 - flat creation
 - user registration
 - user login
+- getting flats by house id
+- flat moderation flow
 - session authorization state
+- token-based validation
 - role-based access restrictions
+- session quit command
+- repository layer tests with Google Test
 - logging system
 - repository access through `DatabaseManager`
 
@@ -313,6 +354,52 @@ Validated manually:
 - authorized `user` sees only approved flats
 - authorized `moderator` sees all flats
 - quit command closes session correctly
+
+### 3 April
+Implemented:
+
+- `/take_flat`
+- `/update_flat_status`
+- moderation flow for flats
+- moderator-only access for flat moderation
+
+Validated manually:
+
+- unauthorized user cannot take flat
+- regular `user` cannot take flat
+- `moderator` can take flat if status is `created`
+- flat status can only be updated from `on_moderation`
+- approved / declined transitions work correctly
+
+### 4 April
+Implemented:
+
+- token generation after successful login
+- token storage inside `Session`
+- token validation for protected commands
+- Google Test integration with separate PostgreSQL test database
+
+Validated manually:
+
+- token is returned after login
+- protected commands fail without valid token
+- token is cleared on `/quit`
+
+Validated through tests:
+
+- `UserRepository` tests
+- `FlatRepository` tests
+- 8 passing Google Tests
+
+## Tests
+
+The project includes Google Test integration tests for repository layer.
+
+Currently covered:
+- `UserRepository`
+- `FlatRepository`
+
+Tests are executed against a separate PostgreSQL test database (`flathub_test`) to avoid modifying the main project database.
 
 ### Manual DB checks
     Examples:
@@ -407,3 +494,11 @@ Open another terminal, go to build and run:
 ```bash```
 
 ./client
+
+### 6. Run tests
+
+```bash```
+
+cd build
+
+./tests

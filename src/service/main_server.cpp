@@ -11,7 +11,7 @@ int main()
 {
     try 
     {
-        Logger::Instance().info("MAIN_TRY", "Запуск сервера...\n");
+        Logger::Instance().info("MAIN_TRY", "Запуск сервера...");
 
         // 1) подключаемся к бд
         std::string db_conn = "dbname=postgres user=postgres password=secret host=127.0.0.1 port=5432";
@@ -24,14 +24,14 @@ int main()
 
         Server server(io_context, 8080, command_factory);
 
-        Logger::Instance().info("MAIN_TRY", "Сервер запущен на порту 8080. Ждем клиентов...\n");
+        Logger::Instance().info("MAIN_TRY", "Сервер запущен на порту 8080. Ждем клиентов...");
 
         io_context.run(); 
 
     } 
     catch (const std::exception& e) 
     {
-        Logger::Instance().error("MAIN_FATAL_CATCH", std::string(e.what()) + "\n");
+        Logger::Instance().error("MAIN_FATAL_CATCH", std::string(e.what()));
     }
 
     return 0;

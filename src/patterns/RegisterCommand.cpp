@@ -2,10 +2,12 @@
 #include "../include/logger.hpp"
 
 CreateRegisterCommand::CreateRegisterCommand( const std::vector<std::string>& args,
-                                                std::shared_ptr<PostgresUserRepository> repo ): repo_(repo)
+                                                std::shared_ptr<PostgresUserRepository> repo,
+                                                std::shared_ptr<Session> session ): repo_(repo), session_(session)
 {
     if( args.size() != 3 )
     {
+        session_->do_write("Некорректное число аргументов для регистрации!");
         throw std::invalid_argument("Некорректное число аргументов для регистрации!");
     }
 

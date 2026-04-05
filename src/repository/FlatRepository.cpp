@@ -21,7 +21,7 @@ void PostgresFlatRepository::saveFlat( int house_id, int flat_num, int rooms, in
     }
     catch(const std::exception& e)
     {
-        Logger::Instance().error("FLAT_REPOSITORY_SAVE_FLAT_CATCH", "SQL ошибка: " + std::string(e.what()) + "\n");
+        Logger::Instance().error("FLAT_REPOSITORY_SAVE_FLAT_CATCH", "SQL ошибка: " + std::string(e.what()));
     }
     
 }
@@ -46,7 +46,7 @@ std::vector<FlatData> PostgresFlatRepository::getFlatForHouseID( size_t house_id
         }
         else
         {
-            Logger::Instance().info("FLAT_REPOSITORY_GET_TRY", "Такой роли нет в PostgreSQL!\n");
+            Logger::Instance().info("FLAT_REPOSITORY_GET_TRY", "Такой роли нет в PostgreSQL!");
             return {}; 
         }
 
@@ -54,7 +54,7 @@ std::vector<FlatData> PostgresFlatRepository::getFlatForHouseID( size_t house_id
 
         if( !R.empty() )
         {
-            Logger::Instance().info("FLAT_REPOSITORY_GET_TRY", "Список квартир дома получен\n");
+            Logger::Instance().info("FLAT_REPOSITORY_GET_TRY", "Список квартир дома получен");
 
             std::vector<FlatData> ans;
 
@@ -75,12 +75,12 @@ std::vector<FlatData> PostgresFlatRepository::getFlatForHouseID( size_t house_id
             return ans;
         }
 
-        Logger::Instance().info("FLAT_REPOSITORY_GET_TRY", "Квартиры для дома не найдены в PostgreSQL!\n");
+        Logger::Instance().info("FLAT_REPOSITORY_GET_TRY", "Квартиры для дома не найдены в PostgreSQL!");
         return {}; 
     }
     catch(const std::exception& e)
     {
-        Logger::Instance().error("FLAT_REPOSITORY_GET_FLAT_CATCH", "SQL ошибка: " + std::string(e.what()) + "\n");
+        Logger::Instance().error("FLAT_REPOSITORY_GET_FLAT_CATCH", "SQL ошибка: " + std::string(e.what()));
         return {}; 
     }
     
@@ -90,7 +90,7 @@ bool PostgresFlatRepository::takeFlat( size_t flat_id )
 {
     try
     {
-        Logger::Instance().info("FLAT_REPOSITORY_TAKE_FLAT_TRY", "Меняем статус...\n");
+        Logger::Instance().info("FLAT_REPOSITORY_TAKE_FLAT_TRY", "Меняем статус...");
 
         pqxx::connection C(conn_str_);
 
@@ -116,7 +116,7 @@ bool PostgresFlatRepository::takeFlat( size_t flat_id )
     }
     catch(const std::exception& e)
     {
-        Logger::Instance().error("FLAT_REPOSITORY_TAKE_FLAT_CATCH", "SQL ошибка: " + std::string(e.what()) + "\n");
+        Logger::Instance().error("FLAT_REPOSITORY_TAKE_FLAT_CATCH", "SQL ошибка: " + std::string(e.what()));
         return false;
     }   
 }
@@ -125,7 +125,7 @@ bool PostgresFlatRepository::UpdateFlatStatus( size_t flat_id, const std::string
 {
     try
     {
-        Logger::Instance().info("FLAT_REPOSITORY_UPDATE_FLAT_STATUS_TRY", "Меняем статус...\n");
+        Logger::Instance().info("FLAT_REPOSITORY_UPDATE_FLAT_STATUS_TRY", "Меняем статус...");
 
         pqxx::connection C(conn_str_);
 
@@ -151,7 +151,7 @@ bool PostgresFlatRepository::UpdateFlatStatus( size_t flat_id, const std::string
     }
     catch(const std::exception& e)
     {
-        Logger::Instance().error("FLAT_REPOSITORY_TAKE_FLAT_CATCH", "SQL ошибка: " + std::string(e.what()) + "\n");
+        Logger::Instance().error("FLAT_REPOSITORY_TAKE_FLAT_CATCH", "SQL ошибка: " + std::string(e.what()));
         return false;
     }
 }

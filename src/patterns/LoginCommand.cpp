@@ -4,7 +4,11 @@
 CreateLoginCommand::CreateLoginCommand( const std::vector<std::string>& args, std::shared_ptr<PostgresUserRepository> repo,
 std::shared_ptr<Session> session ): repo_(repo), session_(session)
 {
-    if( args.size() != 2 ) throw std::invalid_argument("Неверное кол-во аргументов!");
+    if( args.size() != 2 )
+    {
+        session_->do_write("Неверное кол-во аргументов для логина!");
+        throw std::invalid_argument("Неверное кол-во аргументов для логина!");
+    }
     login    = args[0];
     password = args[1];
 }

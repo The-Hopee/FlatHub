@@ -28,7 +28,7 @@ CommandFactory::CommandFactory(std::shared_ptr<DatabaseManager> db_manager): db_
     };
 
     creators_["/register"] = [this](const auto& args, std::shared_ptr<Session> session){
-        return std::make_unique<CreateRegisterCommand>(args,db_manager_->getUserRepo());
+        return std::make_unique<CreateRegisterCommand>(args,db_manager_->getUserRepo(), session);
     };
 
     creators_["/quit"] = [this](const auto& args, std::shared_ptr<Session> session){

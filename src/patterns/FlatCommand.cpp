@@ -2,9 +2,13 @@
 #include "../../include/logger.hpp" 
 
 CreateFlatCommand::CreateFlatCommand( const std::vector<std::string>& args,
- std::shared_ptr<PostgresFlatRepository> repo, std::shared_ptr<Session> session ) : repo_(repo), session_(session)
+std::shared_ptr<PostgresFlatRepository> repo, std::shared_ptr<Session> session ) : repo_(repo), session_(session)
 {
-    if( args.size() != 5 ) throw std::invalid_argument("Неверное кол-во аргументов!");
+    if( args.size() != 5 )
+    {
+        session_->do_write("Неверное кол-во аргументов!\n");
+        throw std::invalid_argument("Неверное кол-во аргументов!");
+    }
     token = args[0];
     house_id    = std::stoi(args[1]);
     flat_number = std::stoi(args[2]);

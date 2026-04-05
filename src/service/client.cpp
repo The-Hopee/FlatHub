@@ -51,13 +51,13 @@ void Client::do_write()
 
         if( ec )
         {
-            Logger::Instance().error("CLIENT_WRITE", "Ошибка отправки данных: " + ec.message() + "\n");
+            Logger::Instance().error("CLIENT_WRITE", "Ошибка отправки данных: " + ec.message());
             break;
         }
 
         if( command.compare("/quit") == 0 )
         {
-            Logger::Instance().info("CLIENT_WRITE", "Инициализирован выход из сервиса. Отключение...\n");
+            Logger::Instance().info("CLIENT_WRITE", "Инициализирован выход из сервиса. Отключение...");
             break;
         }
     }
@@ -80,9 +80,9 @@ void Client::do_read()
             {
                 // Если сервер просто закрыл соединение, это не страшная ошибка (EOF - End Of File)
                 if (ec == boost::asio::error::eof) {
-                    Logger::Instance().info("CLIENT_READ", "Сервер разорвал соединение.\n");
+                    Logger::Instance().info("CLIENT_READ", "Сервер разорвал соединение.");
                 } else {
-                    Logger::Instance().error("CLIENT_READ", "Ошибка чтения данных: " + ec.message() + "\n");
+                    Logger::Instance().error("CLIENT_READ", "Ошибка чтения данных: " + ec.message());
                 }
                 break;
             }
@@ -110,7 +110,7 @@ void Client::do_read()
         catch(const std::exception& e)
         {
             // Лог: поймали критическое исключение (например, разрыв сети на уровне ОС)
-            Logger::Instance().error("CLIENT_EXCEPTION", "Критическая ошибка: " + std::string(e.what()) + "\n");
+            Logger::Instance().error("CLIENT_EXCEPTION", "Критическая ошибка: " + std::string(e.what()));
             break;
         }
     }

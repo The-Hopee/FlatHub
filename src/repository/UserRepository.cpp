@@ -18,11 +18,11 @@ void PostgresUserRepository::saveUser( const std::string& login, const std::stri
 
         W.commit();
 
-        Logger::Instance().info("USER_REPOSITORY_SAVE_TRY", "Пользователь записан в PostgreSQL\n");   
+        Logger::Instance().info("USER_REPOSITORY_SAVE_TRY", "Пользователь записан в PostgreSQL");   
     }
     catch(const std::exception& e)
     {
-        Logger::Instance().error("USER_REPOSITORY_SAVE_CATCH", "SQL ошибка: " + std::string(e.what()) + "\n");
+        Logger::Instance().error("USER_REPOSITORY_SAVE_CATCH", "SQL ошибка: " + std::string(e.what()));
     }
 }
 
@@ -40,7 +40,7 @@ std::optional<UserData> PostgresUserRepository::findUserByLogin( const std::stri
 
         if( !R.empty() )
         {
-            Logger::Instance().info("USER_REPOSITORY_FIND_TRY", "Пользователь найден в PostgreSQL\n");   
+            Logger::Instance().info("USER_REPOSITORY_FIND_TRY", "Пользователь найден в PostgreSQL");   
             
             UserData ans;
             
@@ -58,12 +58,12 @@ std::optional<UserData> PostgresUserRepository::findUserByLogin( const std::stri
 
         // W.commit(); на будущее: для SELECT commit не обязателен
     
-        Logger::Instance().info("USER_REPOSITORY_FIND_TRY", "Пользователь не найден в PostgreSQL\n");
+        Logger::Instance().info("USER_REPOSITORY_FIND_TRY", "Пользователь не найден в PostgreSQL");
         return std::nullopt;   
     }
     catch(const std::exception& e)
     {
-        Logger::Instance().error("USER_REPOSITORY_FIND_CATCH", "SQL ошибка: " + std::string(e.what()) + "\n");
+        Logger::Instance().error("USER_REPOSITORY_FIND_CATCH", "SQL ошибка: " + std::string(e.what()));
         return std::nullopt;
     }   
 }

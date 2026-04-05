@@ -4,7 +4,11 @@
 CreateHouseCommand::CreateHouseCommand( const std::vector<std::string>& args, 
 std::shared_ptr<PostgresHouseRepository> repo, std::shared_ptr<Session> session ): repo_(repo), session_(session)
 {
-    if( args.size() != 4 ) throw std::invalid_argument("Некорректное кол-во аргументов!");
+    if( args.size() != 4 )
+    {
+        session_->do_write("Неверное кол-во аргументов!");
+        throw std::invalid_argument("Неверное кол-во аргументов!");
+    }
 
     token = args[0];
     adress = args[1];

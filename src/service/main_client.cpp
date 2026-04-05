@@ -11,8 +11,8 @@ int main()
 {
     try 
     {
-        Logger::Instance().info("MAIN_CLIENT_TRY","--- Клиент Сервиса Домов ---\n");
-        Logger::Instance().info("MAIN_CLIENT_TRY","Подключение к серверу...\n");
+        Logger::Instance().info("MAIN_CLIENT_TRY","--- Клиент Сервиса Домов ---");
+        Logger::Instance().info("MAIN_CLIENT_TRY","Подключение к серверу...");
 
         boost::asio::io_context io_context;
 
@@ -23,7 +23,7 @@ int main()
     } 
     catch (const std::exception& e) 
     {
-        Logger::Instance().error("MAIN_CLIENT_CATCH","Критическая ошибка клиента: " + std::string(e.what()) + "\n");
+        Logger::Instance().error("MAIN_CLIENT_CATCH","Критическая ошибка клиента: " + std::string(e.what()));
     }
 
     return 0;

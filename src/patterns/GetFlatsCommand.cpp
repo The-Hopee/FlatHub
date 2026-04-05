@@ -5,7 +5,11 @@ CreateGetFlatsCommand::CreateGetFlatsCommand(const std::vector<std::string>& arg
                             std::shared_ptr<PostgresFlatRepository> repo,
                             std::shared_ptr<Session> session): repo_(repo), session_(session)
 {
-    if( args.size() != 2 ) throw std::invalid_argument("Неверное кол-во аргументов!");
+    if( args.size() != 2 )
+    {
+        session_->do_write("Неверное кол-во аргументов!\n");
+        throw std::invalid_argument("Неверное кол-во аргументов!");
+    }
 
     token = args[0];
     house_id = std::stoi(args[1]);
