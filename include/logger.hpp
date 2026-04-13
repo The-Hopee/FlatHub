@@ -31,10 +31,6 @@ private:
         {
             std::cerr << "LOGGER ERROR: file was not opened\n";
         }
-        else
-        {
-            log_file.open("../logs/server.log", std::ios::app);
-        }
     }
     ~Logger()
     {
