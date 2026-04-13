@@ -1,1 +1,0 @@
-/usr/bin/c++ CMakeFiles/client.dir/src/service/client.cpp.o CMakeFiles/client.dir/src/service/main_client.cpp.o CMakeFiles/client.dir/src/patterns/logger.cpp.o -o client  /usr/lib/x86_64-linux-gnu/libboost_system.so.1.74.0 
