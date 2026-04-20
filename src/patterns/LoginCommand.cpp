@@ -1,13 +1,16 @@
 #include "../../include/LoginCommand.hpp"
 #include "../../include/logger.hpp"
+#include "../../include/auth/jwt_utils.hpp"
 
 CreateLoginCommand::CreateLoginCommand( const std::vector<std::string>& args, std::shared_ptr<PostgresUserRepository> repo,
 std::shared_ptr<Session> session ): repo_(repo), session_(session)
 {
     if( args.size() != 2 )
     {
-        session_->do_write("Неверное кол-во аргументов для логина!");
-        throw std::invalid_argument("Неверное кол-во аргументов для логина!");
+        if (session_) {
+            session_->do_write("ERROR: Invalid number of arguments for login!\n");
+        }
+        throw std::invalid_argument("Invalid number of arguments for login");
     }
     login    = args[0];
     password = args[1];
@@ -15,31 +18,37 @@ std::shared_ptr<Session> session ): repo_(repo), session_(session)
 
 void CreateLoginCommand::execute()
 {
-    Logger::Instance().info("CREATE_LOGIN_COMMAND", "Ищем юзера в нашей БД");
+    Logger::Instance().info("CREATE_LOGIN_COMMAND", "Searching for user in database: " + login);
 
     auto ans = repo_->findUserByLogin(login);
 
     if( !ans )
     {
-        Logger::Instance().error("CREATE_LOGIN_COMMAND", "Ошибка. Пользователь с таким логином не найден!");
-        session_->do_write("ERROR: Пользователь не найден!\n");
+        Logger::Instance().error("CREATE_LOGIN_COMMAND", "User not found");
+        if (session_) {
+            session_->do_write("ERROR: User not found!\n");
+        }
         return;
     }
 
     else if( ans->password.compare(password) != 0 )
     {
-        Logger::Instance().error("CREATE_LOGIN_COMMAND", "Ошибка. Неверный пароль!");
-        session_->do_write("ERROR: Неверный пароль!\n");
+        Logger::Instance().error("CREATE_LOGIN_COMMAND", "Invalid password");
+        if (session_) {
+            session_->do_write("ERROR: Invalid password!\n");
+        }
         return;
     }
 
-    Logger::Instance().info("CREATE_LOGIN_COMMAND", "Успешный вход пользователя с ролью: " + ans->role);
+    Logger::Instance().info("CREATE_LOGIN_COMMAND", "Successful login for user: " + ans->login + " with role: " + ans->role);
 
     if( session_ )
     {
         session_->autorize(true, ans->id, ans->login, ans->role);
-        session_->do_write("OK: Логин верный, роль = " + ans->role + "\n");
-        session_->setToken();
-        session_->do_write("TOKEN: " + session_->getToken() + "\n");
+        session_->do_write("OK: Login successful, role = " + ans->role + "\n");
+        
+        // Generate JWT token
+        std::string token = JWTUtils::generateToken(ans->id, ans->login, ans->role, 86400);
+        session_->do_write("TOKEN: " + token + "\n");
     }
 }

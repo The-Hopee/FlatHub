@@ -4,10 +4,12 @@ Pet-project backend service for real estate announcements (houses / flats / user
 
 The goal of the project is to practice:
 - backend architecture
-- asynchronous networking
+- asynchronous networking with HTTP/REST
+- JWT token-based authentication
 - PostgreSQL integration
 - command-based request handling
 - role-based access logic (`user` / `moderator`)
+- horizontal scalability through stateless design
 - preparation for middle C++ backend / highload interviews
 
 ---
@@ -15,66 +17,164 @@ The goal of the project is to practice:
 ## Stack
 
 - **C++17**
-- **Boost.Asio**
-- **PostgreSQL**
-- **Docker**
-- **CMake**
+- **Boost.Asio** (async I/O)
+- **Boost.Beast** (HTTP server)
+- **OpenSSL** (JWT signing, TLS support)
+- **nlohmann/json** (JSON parsing/generation)
+- **PostgreSQL** (persistence)
+- **Docker** (database)
+- **CMake** (build system)
 
 ---
 
-## Current architecture
+## Current Architecture
 
-The project is currently split into several logical layers:
+FlatHub v2 features a **modernized REST API with JWT authentication**:
 
-### 1. Network layer
-Responsible for client/server communication
-- `Server`
-- `Session`
-- `Client`
+### 1. Network Layer (HTTP/REST with Boost.Beast)
+Handles REST API requests over HTTP
+- `HttpServer`: Accepts connections, manages lifecycle
+- `HttpSession`: Processes HTTP requests, handles JSON payloads
+- All communication is stateless (suitable for horizontal scaling)
 
-### 2. Command layer
-Responsible for processing user commands
-- `ICommand`
-- `CreateFlatCommand`
-- `CreateHouseCommand`
-- `CreateRegisterCommand`
-- `CreateLoginCommand`
+**Key Improvement:** Replaced TCP socket protocol with industry-standard REST API + JSON
 
-### 3. Factory layer
-Responsible for command creation by command name
-- `CommandFactory`
+### 2. Authentication Layer (JWT + OpenSSL)
+Implements stateless, token-based authentication
+- `JWTUtils`: Token generation and validation using HS256 (HMAC-SHA256)
+- Tokens include user claims: `user_id`, `login`, `role`, expiration time
+- Tokens are validated on each protected request via `Authorization: Bearer <token>` header
+- 24-hour default token expiry (configurable)
 
-### 4. Database layer
-Responsible for persistence and SQL logic
-- `FlatRepository`
-- `HouseRepository`
-- `UserRepository`
-- `DatabaseManager`
+**Key Benefit:** Enables horizontal scaling without session affinity
 
-### 5. Utility layer
-- `Logger`
+### 3. Command Layer (Unchanged)
+Backward-compatible command pattern for business logic
+- `ICommand` interface
+- Concrete commands: `CreateFlatCommand`, `LoginCommand`, `HouseCommand`, etc.
+- Commands are referenced but not used in HTTP layer (commands were designed for TCP protocol)
+
+### 4. Database Layer (Unchanged)
+SQL isolation through repositories
+- `PostgresFlatRepository`: Flat CRUD + role-based filtering
+- `PostgresHouseRepository`: House CRUD
+- `PostgresUserRepository`: User CRUD + login validation
+- `DatabaseManager`: Single entry point to all repositories
+
+### 5. Utility Layer (Unchanged)
+- `Logger`: File and console logging
+
+---
+
+## REST API Endpoints
+
+### Authentication Endpoints
+
+#### POST `/api/login`
+Login with credentials, receive JWT token
+```bash
+curl -X POST http://localhost:8080/api/login \
+  -H "Content-Type: application/json" \
+  -d '{
+    "login": "user@example.com",
+    "password": "securepassword"
+  }'
+```
+**Response:**
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "role": "user",
+  "message": "Login successful"
+}
+```
+
+#### POST `/api/register`
+Register a new user
+```bash
+curl -X POST http://localhost:8080/api/register \
+  -H "Content-Type: application/json" \
+  -d '{
+    "login": "newuser@example.com",
+    "password": "securepassword",
+    "role": "user"
+  }'
+```
+
+### Protected Endpoints (require Bearer token)
+
+#### POST `/api/flat`
+Create a new flat (requires valid JWT token)
+```bash
+curl -X POST http://localhost:8080/api/flat \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <token>" \
+  -d '{
+    "house_id": 1,
+    "flat_number": 101,
+    "rooms": 3,
+    "price": 5000000
+  }'
+```
+
+#### GET `/api/flats/{house_id}`
+Get flats for a specific house (public, no auth required)
+```bash
+curl http://localhost:8080/api/flats/1
+```
+
+#### POST `/api/house`
+Create a new house (moderator only)
+```bash
+curl -X POST http://localhost:8080/api/house \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <token>" \
+  -d '{
+    "address": "123 Main St, City",
+    "build_year": 2024,
+    "developer": "Developer Inc"
+  }'
+```
+
+#### POST `/api/flat/take`
+Take a flat for moderation (moderator only)
+```bash
+curl -X POST http://localhost:8080/api/flat/take \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <token>" \
+  -d '{"flat_id": 42}'
+```
+
+#### PUT `/api/flat/status`
+Update flat status (moderator only)
+```bash
+curl -X PUT http://localhost:8080/api/flat/status \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <token>" \
+  -d '{
+    "flat_id": 42,
+    "status": "approved"
+  }'
+```
 
 ---
 
 ## Implemented functionality
 
-### Working now
-- create house (`/create_house`) — available only for `moderator`
-- create flat (`/create_flat`) — available only for authorized users
-- register user (`/register`)
-- login user (`/login`)
-- get flats by house id (`/get_flats`)
-- take flat to moderation (`/take_flat`) — available only for `moderator`
-- update flat status (`/update_flat_status`) — available only for `moderator`
-- quit session (`/quit`)
-- session authorization state
-- role-based access control (`user` / `moderator`)
-- token-based command validation
-- PostgreSQL integration through Docker
-- logging to console and file
-- command creation through factory
-- database manager for repositories
-- Google Test integration
+### Working now (REST API)
+- **POST** `/api/login` — authenticate user, receive JWT token
+- **POST** `/api/register` — register new user
+- **POST** `/api/flat` — create flat (requires token)
+- **GET** `/api/flats/{id}` — get flats for house (role-based filtering)
+- **POST** `/api/house` — create house (moderator only, requires token)
+- **POST** `/api/flat/take` — take flat for moderation (moderator only)
+- **PUT** `/api/flat/status` — update flat status (moderator only)
+- **JWT token validation** — token expiry, signature verification
+- **Role-based access control** — user/moderator separation
+- **PostgreSQL persistence** — immediate data storage
+- **JSON request/response** — standard REST API format
+- **Horizontal scalability** — stateless design via JWT tokens
+- **Logging** — to console and file (`logs/app.log`)
 
 ---
 
@@ -83,19 +183,19 @@ Responsible for persistence and SQL logic
 Current entities:
 
 ### `houses`
-- `id`
-- `address`
-- `build_year`
-- `developer`
-- `created_at`
+- `id` (PRIMARY KEY)
+- `address` (VARCHAR)
+- `build_year` (INT)
+- `developer` (VARCHAR)
+- `created_at` (TIMESTAMP)
 
 ### `flats`
-- `id`
-- `house_id`
-- `flat_number`
-- `price`
-- `rooms`
-- `status`
+- `id` (PRIMARY KEY)
+- `house_id` (FOREIGN KEY → houses.id)
+- `flat_number` (INT)
+- `price` (INT)
+- `rooms` (INT)
+- `status` (VARCHAR) — values: `created`, `on_moderation`, `approved`, `declined`
 
 ### `users`
 - `id`
@@ -391,13 +491,357 @@ Validated through tests:
 - `FlatRepository` tests
 - 8 passing Google Tests
 
-## Tests
+## Testing the Application
 
-The project includes Google Test integration tests for repository layer.
+The application includes both automated tests (Google Test) and manual testing via HTTP API.
+
+### Automated Tests
+The project includes Google Test integration tests for the repository layer:
 
 Currently covered:
-- `UserRepository`
-- `FlatRepository`
+- `UserRepository` (user CRUD operations)
+- `FlatRepository` (flat CRUD + role-based filtering)
+
+Tests are executed against a separate PostgreSQL test database (`flathub_test`).
+
+#### Run tests:
+```bash
+cd build
+ctest  # or: ./tests
+```
+
+### Manual Database Inspection
+Query the database directly:
+
+```bash
+# View houses
+docker exec -it db_service psql -U postgres -d flat_hub_db -c "SELECT * FROM houses;"
+
+# View flats
+docker exec -it db_service psql -U postgres -d flat_hub_db -c "SELECT * FROM flats;"
+
+# View users
+docker exec -it db_service psql -U postgres -d flat_hub_db -c "SELECT * FROM users;"
+```
+
+### Manual HTTP API Testing
+
+Use `curl` or Postman to test the REST API endpoints:
+
+```bash
+# 1. Register a new user
+curl -X POST http://localhost:8080/api/register \
+  -H "Content-Type: application/json" \
+  -d '{
+    "login": "alice",
+    "password": "password123",
+    "role": "user"
+  }'
+
+# 2. Login to get JWT token
+TOKEN=$(curl -X POST http://localhost:8080/api/login \
+  -H "Content-Type: application/json" \
+  -d '{"login":"alice","password":"password123"}' \
+  | jq -r '.token')
+
+echo "Your JWT token: $TOKEN"
+
+# 3. Create a house (moderator only - register as moderator first)
+curl -X POST http://localhost:8080/api/house \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $TOKEN" \
+  -d '{
+    "address": "123 Main Street, Downtown",
+    "build_year": 2024,
+    "developer": "BuildCorp Inc"
+  }'
+
+# 4. Create a flat
+curl -X POST http://localhost:8080/api/flat \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $TOKEN" \
+  -d '{
+    "house_id": 1,
+    "flat_number": 101,
+    "rooms": 3,
+    "price": 5000000
+  }'
+
+# 5. Get flats for a house
+curl http://localhost:8080/api/flats/1 | jq .
+
+# 6. Take flat for moderation (moderator only)
+curl -X POST http://localhost:8080/api/flat/take \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $TOKEN" \
+  -d '{"flat_id": 1}'
+
+# 7. Update flat status (moderator only)
+curl -X PUT http://localhost:8080/api/flat/status \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $TOKEN" \
+  -d '{
+    "flat_id": 1,
+    "status": "approved"
+  }'
+```
+
+#### JWT Token Format
+
+The JWT token returned from `/api/login` contains:
+- **Header:** Algorithm (HS256), Token type (JWT)
+- **Payload:** user_id, login, role, issued_at (iat), expiration (exp)
+- **Signature:** HMAC-SHA256 signed with secret key
+
+Example decoded token:
+```json
+{
+  "alg": "HS256",
+  "typ": "JWT"
+}
+{
+  "user_id": 1,
+  "login": "alice",
+  "role": "user",
+  "iat": 1713607274,
+  "exp": 1713693674
+}
+```
+
+**Token Expiration:** 24 hours (configurable in `JWTUtils::generateToken()`)
+
+### Monitoring
+
+Check the application logs:
+```bash
+tail -f logs/app.log
+```
+
+Logs include:
+- Server startup information
+- Request logging (endpoint, method, user)
+- Authentication events (login, token validation)
+- Error messages
+- Database operation logging
+
+---
+
+## How to Build and Run
+
+### 1. Start PostgreSQL in Docker
+
+Using docker-compose (recommended):
+```bash
+docker-compose up -d
+```
+
+Or manually:
+```bash
+docker run --name db_service \
+  -e POSTGRES_PASSWORD=secret \
+  -p 5432:5432 \
+  -d postgres:15
+```
+
+If container exists but is stopped:
+```bash
+docker start db_service
+```
+
+### 2. Create Database Schema
+
+Option A: Using migration file (auto-runs with docker-compose):
+```bash
+docker exec db_service psql -U postgres -d flat_hub_db < migrations/001_init.sql
+```
+
+Option B: Manual creation:
+```bash
+docker exec -it db_service psql -U postgres -d postgres
+```
+
+Inside PostgreSQL console:
+```sql
+CREATE DATABASE flat_hub_db;
+CREATE DATABASE flathub_test;
+
+\c flat_hub_db
+
+CREATE TABLE houses (
+    id SERIAL PRIMARY KEY,
+    address VARCHAR(255) NOT NULL,
+    build_year INT NOT NULL,
+    developer VARCHAR(255),
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+CREATE TABLE flats (
+    id SERIAL PRIMARY KEY,
+    house_id INT NOT NULL REFERENCES houses(id),
+    flat_number INT NOT NULL,
+    price INT NOT NULL,
+    rooms INT NOT NULL,
+    status VARCHAR(50) DEFAULT 'created'
+);
+
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    login VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    role VARCHAR(255) NOT NULL
+);
+
+-- Sample data
+INSERT INTO houses (address, build_year, developer) 
+VALUES ('123 Main St', 2024, 'BuildCorp');
+```
+
+Exit with: `\q`
+
+### 3. Build Project
+
+```bash
+cd /path/to/FlatHub
+mkdir build
+cd build
+cmake ..
+cmake --build .
+```
+
+**Dependencies that must be installed:**
+- `libpqxx-dev` (PostgreSQL C++ driver)
+- `libboost-all-dev` (Boost libraries)
+- `libssl-dev` (OpenSSL)
+- `cmake` (build system)
+- `g++` (C++ compiler, C++17 support required)
+
+**Ubuntu/Debian:**
+```bash
+sudo apt-get install -y \
+  libpqxx-dev \
+  libboost-all-dev \
+  libssl-dev \
+  cmake \
+  g++
+```
+
+### 4. Run Server
+
+```bash
+cd build
+./server
+```
+
+Expected output:
+```
+[2026-04-20 00:01:14] [MAIN_TRY] [INFO] Starting HTTP server with JWT authentication...
+[2026-04-20 00:01:14] [HTTP_SERVER] [INFO] HTTP Server initialized on port 8080
+[2026-04-20 00:01:14] [MAIN_TRY] [INFO] HTTP Server started on port 8080. Listening for requests...
+[2026-04-20 00:01:14] [MAIN_TRY] [INFO] Available endpoints: /api/login, /api/register, /api/flat, /api/flats/{id}, /api/house
+```
+
+Server is now listening on `http://localhost:8080`
+
+### 5. Run Tests
+
+```bash
+cd build
+ctest
+```
+
+Or run directly:
+```bash
+./tests
+```
+
+### 6. Run Legacy TCP Client (Optional)
+
+If you want to test the old TCP protocol (for backward compatibility):
+```bash
+cd build
+./client
+```
+
+Then enter commands like:
+```
+/login username password
+/register username password
+/create_house address build_year developer
+/create_flat house_id flat_number rooms price
+```
+
+---
+
+## Architecture Notes
+
+### Stateless Design for Horizontal Scaling
+
+Unlike the old TCP-based system, the new HTTP server is **stateless**:
+
+1. **No session affinity needed**: Each request includes the JWT token, so any server instance can process it
+2. **Can be deployed behind a load balancer**: Multiple instances behind nginx/haproxy
+3. **Easy horizontal scaling**: Add more instances as traffic grows
+4. **No session storage needed**: Tokens are self-contained and cryptographically signed
+
+Example deployment with 3 instances:
+```
+Load Balancer (nginx)
+    ↓
+    ├→ HTTP Server (port 8080)
+    ├→ HTTP Server (port 8080)
+    └→ HTTP Server (port 8080)
+        ↓
+    PostgreSQL (single database)
+```
+
+### Security Considerations
+
+**Current Implementation (Development):**
+- JWT secret key is hardcoded in `jwt_utils.cpp` (for demo purposes)
+- No HTTPS/TLS configured
+- Passwords stored as plain text
+
+**Production Recommendations:**
+1. **Load JWT secret from environment variable:**
+   ```cpp
+   const std::string SECRET_KEY = std::getenv("JWT_SECRET");
+   ```
+
+2. **Enable TLS/HTTPS:**
+   - Use Boost.Beast SSL streams
+   - Configure certificates in `HttpServer`
+
+3. **Hash passwords:**
+   - Use bcrypt or Argon2 in `PostgresUserRepository::saveUser()`
+   - Verify hashes in `LoginCommand::execute()`
+
+4. **Rate limiting:**
+   - Implement token bucket algorithm on login endpoint
+   - Prevent brute force attacks
+
+5. **Token revocation:**
+   - Maintain a blacklist of revoked tokens
+   - Useful for logout / security incidents
+
+---
+
+## Key Files
+
+| File | Purpose |
+|------|---------|
+| `include/http_server.hpp` / `src/service/http_server.cpp` | HTTP server using Boost.Beast |
+| `include/http_session.hpp` / `src/service/http_session.cpp` | HTTP request handler |
+| `include/auth/jwt_utils.hpp` / `src/auth/jwt_utils.cpp` | JWT generation and validation |
+| `include/factory.hpp` / `src/patterns/factory.cpp` | Command factory (backward compat) |
+| `CMakeLists.txt` | Build configuration with OpenSSL/Beast |
+| `docker-compose.yml` | PostgreSQL database setup |
+| `migrations/001_init.sql` | Database schema |
+
+---
+
+## Development Notes
+
+### JWT Token Notes
 
 Tests are executed against a separate PostgreSQL test database (`flathub_test`) to avoid modifying the main project database.
 
@@ -420,31 +864,34 @@ This project is developed iteratively:
     4) improve access control / auth
     5) improve performance and test coverage
 
-## How to run
+## Legacy: How to run (TCP Protocol - Deprecated)
 
 ### 1. Start PostgreSQL in Docker
 Run PostgreSQL container:
 
-```bash```
+```bash
 docker run --name db_service -e POSTGRES_PASSWORD=secret -p 5432:5432 -d postgres
 
 If container already exists but is stopped:
 
-```bash```
+```bash
 
 docker start db_service
+```
 
 ### 2. Create database schema
 Run SQL manually inside container or use migration file.
 
 ### Example manual schema creation:
 
-```bash```
+```bash
 
 docker exec -it db_service psql -U postgres -d postgres
+```
+
 ### Inside PostgreSQL console run:
 
-```sql```
+```sql
 
 CREATE TABLE houses (
     id SERIAL PRIMARY KEY,
@@ -472,32 +919,35 @@ CREATE TABLE users (
 
 INSERT INTO houses (address, build_year) VALUES ('ул. Пушкина, д. 1', 2026);
 
-### Exit PostgreSQL console:
-
-```sql```
-
 \q
+```
+
 ### 3. Build project
-```bash```
+```bash
 
 mkdir build
 cd build
 cmake ..
 cmake --build .
+```
+
 ### 4. Run server
-```bash```
+```bash
 
 ./server
+```
+
 ### 5. Run client
 Open another terminal, go to build and run:
 
-```bash```
+```bash
 
 ./client
+```
 
 ### 6. Run tests
 
-```bash```
+```bash
 
 cd build
 

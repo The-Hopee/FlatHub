@@ -1,4 +1,6 @@
-# Build
-build/
 #log
 logs/
+# build
+build/
+# claude agents
+AGENTS.md
